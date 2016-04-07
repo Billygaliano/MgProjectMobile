@@ -17,39 +17,37 @@ import mgproject.inftel.mgproject.model.User;
 /**
  * Created by andresbailen93 on 7/4/16.
  */
-public class RequestUser {
+public class RequestUser extends AsyncTask<String,Void,String>{
 
-    public void loginUser(JSONObject json){
-        String url = MGApp.getServerUri() + "user";
+    @Override
+    protected String doInBackground(String... urls) {
 
+        // params comes from the execute() call: params[0] is the url.
+        try {
+            return loginUser(urls[0]);
 
-    }
-
-    private class LoginUserClass extends AsyncTask<String,Void,String>{
-        @Override
-        protected String doInBackground(String... url){
-            try{
-                return loginUser(url[0]);
-            }catch (IOException e){
-                Log.d("login", "URL INVALIDA");
-                return null;
-            }
+        } catch (IOException e) {
+            Log.d("Login", "Unable to retrieve web page. URL may be invalid.");
+            return null;
         }
     }
 
+    @Override
+    protected void onPostExecute(String json) {
 
-private String loginUser(String myurl) throws IOException{
-    User user = User.getInstance();
-    String getURL = myurl + user.getEmail();
+    }
 
-    URL obj = new URL(getURL);
-    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-    con.setRequestMethod("GET");
 
-    int responseCode = con.getResponseCode();
+    private String loginUser(String myurl) throws IOException {
+        User user = User.getInstance();
+        String getURL = myurl + user.getEmail();
 
-    if (responseCode == 204) {
+        URL obj = new URL(getURL);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        int responseCode = con.getResponseCode();
+
 
         URL url = new URL(myurl);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,26 +57,26 @@ private String loginUser(String myurl) throws IOException{
         conn.setDoInput(true);
         conn.setDoOutput(true);
         conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestProperty("Accept", "application/json");
 
-        JSONObject jsonObject = User.toJSON(user);
+        JSONObject jsonObject = user.toJSON(user);
         System.out.println(jsonObject.toString());
+        Log.e("POST",jsonObject.toString());
 
         OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
         wr.write(jsonObject.toString());
         wr.flush();
         wr.close();
 
-// Starts the query
+        // Starts the query
         conn.connect();
 
         int response2 = conn.getResponseCode();
         Log.d("Login", "The response is: " + response2);
+
+
+        con.disconnect();
+
+        return "";
     }
-
-    con.disconnect();
-
-    return "";
-}
 }
 

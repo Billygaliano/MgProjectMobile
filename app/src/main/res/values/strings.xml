@@ -3,10 +3,10 @@
 
     <!-- mgproject.inftel.mgproject/LoginActivity -->
     <string name="preference_file_key">SharedPreferences</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Manage Projects</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
 </resources>
