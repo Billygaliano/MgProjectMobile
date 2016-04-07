@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.model.User;
 
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     //Login Google
@@ -36,14 +37,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     //SharedPreference for login
     private SharedPreferences sharedPref;
     //URL restful Login
-    private String urlLogin;
+    private String serverUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Initialize variables
-        urlLogin = getString(R.string.urlLogin);
+        serverUri = MGApp.getServerUri();
+
 
         //Load content sharedPreference
         sharedPref =  getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -130,7 +132,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
 
             user.setUsername(acct.getDisplayName());
-            new LoginUserClass().execute(urlLogin);
+            user.setIdGoogleUser(acct.getId());
+            new LoginUserClass().execute(this.serverUri + "user");
             goMainActivity(user, true);
 
         } else {
@@ -148,6 +151,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             editor.putString("email", user.getEmail());
             editor.putString("username", user.getUsername());
             editor.putString("photo", user.getPhoto());
+            editor.putString("idUser", user.getIdGoogleUser());
             editor.commit();
 
         }
@@ -187,11 +191,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         URL obj = new URL(getURL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        con.setRequestMethod("GET");
-
         int responseCode = con.getResponseCode();
 
-        if (responseCode == 204) {
 
             URL url = new URL(myurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -201,14 +202,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
 
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("username", user.getEmail());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            JSONObject jsonObject = user.toJSON(user);
+            System.out.println(jsonObject.toString());
+            Log.e("POST",jsonObject.toString());
 
             OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
             wr.write(jsonObject.toString());
@@ -220,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             int response2 = conn.getResponseCode();
             Log.d("Login", "The response is: " + response2);
-        }
+
 
         con.disconnect();
 

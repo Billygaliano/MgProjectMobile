@@ -2,6 +2,8 @@ package mgproject.inftel.mgproject.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import mgproject.inftel.mgproject.R;
+
 
 import mgproject.inftel.mgproject.R;
 
