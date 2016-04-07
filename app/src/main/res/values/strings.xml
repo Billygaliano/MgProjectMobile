@@ -2,6 +2,5 @@
     <string name="app_name">Manage Projects</string>
 
     <!-- mgproject.inftel.mgproject/LoginActivity -->
-    <string name="urlLogin">http://192.168.183.43:8080/iChoppingWS/webresources/model.membership/</string>
     <string name="preference_file_key">SharedPreferences</string>
 </resources>
