@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mg_project_logo"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="mgproject.inftel.mgproject.LoginActivity"
+    tools:context="mgproject.inftel.mgproject.activities.LoginActivity"
     tools:showIn="@layout/activity_login">
 
 

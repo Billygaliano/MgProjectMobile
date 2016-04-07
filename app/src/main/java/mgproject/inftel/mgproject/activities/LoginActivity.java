@@ -1,4 +1,4 @@
-package mgproject.inftel.mgproject;
+package mgproject.inftel.mgproject.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import model.User;
+import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.model.User;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
