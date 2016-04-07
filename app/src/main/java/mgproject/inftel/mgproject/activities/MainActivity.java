@@ -3,6 +3,7 @@ package mgproject.inftel.mgproject.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +14,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.fragment.LoadingFragment;
+import mgproject.inftel.mgproject.fragment.ProjectFragment;
+import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestProject;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    ArrayList<Project> projectList = null;
+    private MGApp mMGappInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +51,15 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
+        //FRagmento de carga
+        LoadingFragment loadingFragment = new LoadingFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+
+        this.mMGappInstance = MGApp.getmInstance();
+        String url = mMGappInstance.getServerUri()+"project/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
+        new RequestProject(this).execute(url);
     }
 
     @Override
@@ -93,5 +111,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void showPlaceListFragment(ArrayList<Project> projectList) {
+        this.projectList = projectList;
+        ProjectFragment placeListFragment = new ProjectFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("projectList", projectList);
+        placeListFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, placeListFragment).commit();
     }
 }

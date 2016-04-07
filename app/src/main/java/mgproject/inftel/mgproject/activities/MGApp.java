@@ -15,6 +15,12 @@ public class MGApp extends Application {
     private static MGApp mInstance;
     private User user;
 
+    @Override
+    public void onCreate(){
+        super.onCreate();
+        mInstance = this;
+    }
+
     public User getUser() {
         return user;
     }
