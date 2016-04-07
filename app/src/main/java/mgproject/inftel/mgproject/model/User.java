@@ -1,5 +1,8 @@
 package mgproject.inftel.mgproject.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 /**
  */
@@ -12,7 +15,14 @@ public class User implements Serializable {
 
     private static User userInstance = null;
 
-    private User(){};
+    public User(){};
+
+    public User(String username, String photo, String email, String idGoogleUser) {
+        this.username = username;
+        this.photo = photo;
+        this.email = email;
+        this.idGoogleUser = idGoogleUser;
+    }
 
     public static User getInstance() {
         if(userInstance == null) {
@@ -61,5 +71,18 @@ public class User implements Serializable {
                 ", photo='" + photo + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public static JSONObject toJSON(User user){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("email",user.getEmail());
+            json.put("idUser", user.getIdGoogleUser());
+            json.put("nick",user.getUsername());
+            json.put("urlImage",user.getPhoto());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 }
