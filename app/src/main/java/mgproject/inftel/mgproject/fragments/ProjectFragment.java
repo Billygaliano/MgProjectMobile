@@ -17,8 +17,10 @@ import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.activities.ProjectInfoActivity;
 import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestCollaborators;
 import mgproject.inftel.mgproject.util.RequestProject;
 import mgproject.inftel.mgproject.util.RequestTask;
 
@@ -61,6 +63,11 @@ public class ProjectFragment extends Fragment {
 
                 TabFragment tabProjectFragment = new TabFragment();
                 tabProjectFragment.setArguments(projectParam);
+                //Guardar project en la sesion
+                MGApp.getmInstance().setProject(projectList.get(position));
+
+                new RequestCollaborators(tabProjectFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+
                 String idProject = Long.toString(project.getIdProject());
                 System.out.println("URL: " + mMGappInstance.getServerUri()+"task/"+idProject);
 
@@ -72,4 +79,6 @@ public class ProjectFragment extends Fragment {
 
         return view;
     }
+
+
 }

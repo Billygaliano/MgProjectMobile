@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 
 /**
@@ -14,11 +15,20 @@ public class MGApp extends Application {
     private GoogleApiClient mGoogleApiClient;
     private static MGApp mInstance;
     private User user;
+    private Project project;
 
     @Override
     public void onCreate(){
         super.onCreate();
         mInstance = this;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public User getUser() {

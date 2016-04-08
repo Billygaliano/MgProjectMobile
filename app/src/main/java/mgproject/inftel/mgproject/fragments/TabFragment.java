@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.model.User;
+import mgproject.inftel.mgproject.util.RequestCollaborators;
 import mgproject.inftel.mgproject.model.Task;
 
 public class TabFragment extends Fragment {
@@ -23,6 +26,8 @@ public class TabFragment extends Fragment {
     public static int int_items = 4 ;
     private Project project;
     private ArrayList<Task> tasksList;
+    public ArrayList<User> collaboratorsList;
+    private CoollaboratorsFragment coollaboratorsFragment;
 
     @Nullable
     @Override
@@ -30,7 +35,7 @@ public class TabFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tab_layout, null);
+        View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
@@ -38,6 +43,7 @@ public class TabFragment extends Fragment {
         project = projectBundle.getParcelable("project");
         tasksList = projectBundle.getParcelableArrayList("taskList");
 
+        System.out.println("Admin del proyecto" + project.getAdminProject());
 
         /**
          *Set an Apater for the View Pager
@@ -53,8 +59,8 @@ public class TabFragment extends Fragment {
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
-                    tabLayout.setupWithViewPager(viewPager);
-                   }
+                tabLayout.setupWithViewPager(viewPager);
+            }
         });
 
         return x;
@@ -133,5 +139,13 @@ public class TabFragment extends Fragment {
         tasksFragment.setArguments(bundle);
         descriptionFragment.setArguments(bundle);
     }
+    public void showCollaborators(ArrayList< User > collaboratorsList) {
+        this.collaboratorsList = collaboratorsList;
 
+        this.coollaboratorsFragment = new CoollaboratorsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("collaboratorsList", collaboratorsList);
+        coollaboratorsFragment.setArguments(bundle);
+    }
 }
