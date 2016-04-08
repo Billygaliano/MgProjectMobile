@@ -11,14 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.model.User;
+import mgproject.inftel.mgproject.util.RequestCollaborators;
 
 public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 4 ;
+    public ArrayList<User> collaboratorsList;
+    private CoollaboratorsFragment coollaboratorsFragment;
 
     @Nullable
     @Override
@@ -48,8 +55,8 @@ public class TabFragment extends Fragment {
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
-                    tabLayout.setupWithViewPager(viewPager);
-                   }
+                tabLayout.setupWithViewPager(viewPager);
+            }
         });
 
         return x;
@@ -72,7 +79,8 @@ public class TabFragment extends Fragment {
           switch (position){
               case 0 : return new DescriptionFragment();
               case 1 : return new TasksFragment();
-              case 2 : return new CoollaboratorsFragment();
+              case 2 :
+                  return coollaboratorsFragment;
               case 3 : return new FilesFragment();
           }
         return null;
@@ -105,5 +113,13 @@ public class TabFragment extends Fragment {
                 return null;
         }
     }
+    public void showCollaborators(ArrayList< User > collaboratorsList) {
+        this.collaboratorsList = collaboratorsList;
 
+        this.coollaboratorsFragment = new CoollaboratorsFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("collaboratorsList", collaboratorsList);
+        coollaboratorsFragment.setArguments(bundle);
+    }
 }

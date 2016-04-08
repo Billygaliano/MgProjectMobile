@@ -1,12 +1,15 @@
 package mgproject.inftel.mgproject.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 /**
  */
-public class User implements Serializable {
+public class User implements Serializable, Parcelable {
 
     String username;
     String photo;
@@ -23,6 +26,25 @@ public class User implements Serializable {
         this.email = email;
         this.idGoogleUser = idGoogleUser;
     }
+
+    protected User(Parcel in) {
+        username = in.readString();
+        photo = in.readString();
+        email = in.readString();
+        idGoogleUser = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public static User getInstance() {
         if(userInstance == null) {
@@ -84,5 +106,33 @@ public class User implements Serializable {
             e.printStackTrace();
         }
         return json;
+    }
+    public static User fromJSON(String response) throws JSONException {
+        User u = new User();
+
+        JSONObject jsonObject = new JSONObject(response);
+        u.setIdGoogleUser(jsonObject.getString("idUser"));
+        u.setEmail(jsonObject.getString("email"));
+        if(jsonObject.has("urlImage")) {
+            u.setPhoto(jsonObject.getString("urlImage"));
+        }
+        u.setUsername(jsonObject.getString("nick"));
+
+        return u;
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(username);
+        dest.writeString(photo);
+        dest.writeString(email);
+        dest.writeString(idGoogleUser);
     }
 }
