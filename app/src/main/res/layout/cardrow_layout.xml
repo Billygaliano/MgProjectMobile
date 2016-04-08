@@ -11,17 +11,13 @@ android:layout_margin="8dp">
 <RelativeLayout
     android:id="@+id/backgroundImage"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="200dp"
     android:background="@drawable/mg_project_logo"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingRight="2dp"
-        android:paddingLeft="2dp"
-        android:paddingBottom="2dp"
-        android:layout_margin="4dp">
+        android:layout_height="match_parent">
         <TextView
             android:id="@+id/projectName"
             android:layout_width="wrap_content"
