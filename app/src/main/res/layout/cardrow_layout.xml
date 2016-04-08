@@ -12,7 +12,6 @@ android:layout_margin="8dp">
     android:id="@+id/backgroundImage"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@drawable/mg_project_logo"
     >
 
     <RelativeLayout

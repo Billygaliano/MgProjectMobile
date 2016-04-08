@@ -19,7 +19,7 @@ public class Project implements Parcelable{
     private String description;
     private ArrayList<Long> tasksProject;
     private ArrayList<Long> collaborators;
-    private Long adminProject;
+    private String adminProject;
 
     public Project() {
     }
@@ -81,11 +81,11 @@ public class Project implements Parcelable{
         this.collaborators = collaborators;
     }
 
-    public Long getAdminProject() {
+    public String getAdminProject() {
         return adminProject;
     }
 
-    public void setAdminProject(Long adminProject) {
+    public void setAdminProject(String adminProject) {
         this.adminProject = adminProject;
     }
 
@@ -103,9 +103,15 @@ public class Project implements Parcelable{
     public static Project fromJSON(String response) throws JSONException {
         Project project = new Project();
         JSONObject jsonObject = new JSONObject(response);
-        project.setDescription(jsonObject.getString("description"));
+        if(jsonObject.has("description")) {
+            project.setDescription(jsonObject.getString("description"));
+        }else{
+            project.setDescription("");
+        }
         project.setIdProject(jsonObject.getLong("idProject"));
         project.setNameProject(jsonObject.getString("name"));
+        JSONObject AdminProject = new JSONObject(jsonObject.getString("idAdmin"));
+        project.setAdminProject(AdminProject.getString("idUser"));
         return project;
     }
 }
