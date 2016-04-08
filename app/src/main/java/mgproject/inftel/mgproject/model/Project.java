@@ -18,7 +18,7 @@ public class Project implements Parcelable{
     private String nameProject;
     private String description;
     private ArrayList<Long> tasksProject;
-    private ArrayList<Long> collaborators;
+    private ArrayList<User> collaborators;
     private String adminProject;
 
     public Project() {
@@ -27,6 +27,7 @@ public class Project implements Parcelable{
     protected Project(Parcel in) {
         nameProject = in.readString();
         description = in.readString();
+        adminProject = in.readString();
     }
 
     public static final Creator<Project> CREATOR = new Creator<Project>() {
@@ -73,11 +74,11 @@ public class Project implements Parcelable{
         this.tasksProject = tasksProject;
     }
 
-    public ArrayList<Long> getCollaborators() {
+    public ArrayList<User> getCollaborators() {
         return collaborators;
     }
 
-    public void setCollaborators(ArrayList<Long> collaborators) {
+    public void setCollaborators(ArrayList<User> collaborators) {
         this.collaborators = collaborators;
     }
 
@@ -89,16 +90,6 @@ public class Project implements Parcelable{
         this.adminProject = adminProject;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nameProject);
-        dest.writeString(description);
-    }
 
     public static Project fromJSON(String response) throws JSONException {
         Project project = new Project();
@@ -113,5 +104,19 @@ public class Project implements Parcelable{
         JSONObject AdminProject = new JSONObject(jsonObject.getString("idAdmin"));
         project.setAdminProject(AdminProject.getString("idUser"));
         return project;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeString(nameProject);
+        dest.writeString(description);
+        dest.writeString(adminProject);
     }
 }

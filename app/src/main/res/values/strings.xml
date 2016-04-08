@@ -12,4 +12,5 @@
     <string name="proyectoName">Nombre proyecto</string>
     <string name="title_activity_project_info">ProjectInfoActivity</string>
     <string name="search">Buscar</string>
+    <string name="collaborator_name">Nombre Colaborador</string>
 </resources>

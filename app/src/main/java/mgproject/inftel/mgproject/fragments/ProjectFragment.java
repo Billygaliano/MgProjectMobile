@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.activities.ProjectInfoActivity;
 import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestCollaborators;
 
 /**
  * Created by andresbailen93 on 7/4/16.
@@ -46,6 +49,7 @@ public class ProjectFragment extends Fragment {
         mAdapter = new RecyclerViewAdapter( projectList,this.getContext());
         mRecyclerView.setAdapter(mAdapter);
 
+
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -54,10 +58,17 @@ public class ProjectFragment extends Fragment {
                 projectParam.putParcelable("project", project);
                 TabFragment tabProjectFragment = new TabFragment();
                 tabProjectFragment.setArguments(projectParam);
+                //Guardar project en la sesion
+                MGApp.getmInstance().setProject(projectList.get(position));
+
+                new RequestCollaborators(tabProjectFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabProjectFragment).commit();
             }
         }));
 
         return view;
     }
+
+
 }
