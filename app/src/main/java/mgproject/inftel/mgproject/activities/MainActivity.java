@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,11 +27,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.fragments.TabFragment;
 import mgproject.inftel.mgproject.model.User;
-import mgproject.inftel.mgproject.fragment.LoadingFragment;
-import mgproject.inftel.mgproject.fragment.ProjectFragment;
+import mgproject.inftel.mgproject.fragments.LoadingFragment;
+import mgproject.inftel.mgproject.fragments.ProjectFragment;
 import mgproject.inftel.mgproject.model.Project;
-import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
 import mgproject.inftel.mgproject.util.RequestProject;
 
 public class MainActivity extends AppCompatActivity
@@ -43,6 +42,9 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
     private User user;
+
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
