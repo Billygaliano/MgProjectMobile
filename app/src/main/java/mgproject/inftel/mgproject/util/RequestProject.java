@@ -26,7 +26,7 @@ import mgproject.inftel.mgproject.model.User;
 /**
  * Created by andresbailen93 on 7/4/16.
  */
-public class RequestProject extends AsyncTask<String,Void,String> {
+public class  RequestProject extends AsyncTask<String,Void,String> {
     private Context context;
 
     public RequestProject(Context context) {
@@ -72,6 +72,7 @@ public class RequestProject extends AsyncTask<String,Void,String> {
 
         return response.toString();
     }
+
     @Override
     protected void onPostExecute(String result){
         try {

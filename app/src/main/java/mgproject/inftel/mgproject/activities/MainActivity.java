@@ -28,6 +28,8 @@ import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.fragments.TabFragment;
+import mgproject.inftel.mgproject.fragments.TasksFragment;
+import mgproject.inftel.mgproject.model.Task;
 import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.fragments.LoadingFragment;
 import mgproject.inftel.mgproject.fragments.ProjectFragment;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,  GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     ArrayList<Project> projectList = null;
+    ArrayList<Task> taskList = null;
     private MGApp mMGappInstance;
 
     private GoogleApiClient mGoogleApiClient;
@@ -188,7 +191,6 @@ public class MainActivity extends AppCompatActivity
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-
 
     public void showPlaceListFragment(ArrayList<Project> projectList) {
         this.projectList = projectList;

@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.activities.ProjectInfoActivity;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestProject;
+import mgproject.inftel.mgproject.util.RequestTask;
 
 /**
  * Created by andresbailen93 on 7/4/16.
@@ -28,6 +31,8 @@ public class ProjectFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Project> projectList;
+
+    private MGApp mMGappInstance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,10 +55,17 @@ public class ProjectFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 Project project = projectList.get(position);
+
                 Bundle projectParam = new Bundle();
                 projectParam.putParcelable("project", project);
+
                 TabFragment tabProjectFragment = new TabFragment();
                 tabProjectFragment.setArguments(projectParam);
+                String idProject = Long.toString(project.getIdProject());
+                System.out.println("URL: " + mMGappInstance.getServerUri()+"task/"+idProject);
+
+                new RequestTask(tabProjectFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabProjectFragment).commit();
             }
         }));
