@@ -38,7 +38,6 @@ public class RequestUser extends AsyncTask<String,Void,String>{
     }
 
 
-
     private String loginUser(String myurl) throws IOException {
         User user = User.getInstance();
         String getURL = myurl + user.getEmail();

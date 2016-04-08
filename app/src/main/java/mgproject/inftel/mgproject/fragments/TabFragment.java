@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.model.Project;
 
 public class TabFragment extends Fragment {
 
@@ -25,9 +26,13 @@ public class TabFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-            View x =  inflater.inflate(R.layout.tab_layout,null);
-            tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-            viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        View x =  inflater.inflate(R.layout.tab_layout,null);
+        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
+        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        Bundle projectBundle = getArguments();
+        Project project = projectBundle.getParcelable("project");
+
+        System.out.println("Admin del proyecto" + project.getAdminProject());
 
         /**
          *Set an Apater for the View Pager

@@ -49,16 +49,12 @@ public class ProjectFragment extends Fragment {
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Project project = projectList.get(position);
+                Bundle projectParam = new Bundle();
+                projectParam.putParcelable("project", project);
                 TabFragment tabProjectFragment = new TabFragment();
+                tabProjectFragment.setArguments(projectParam);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabProjectFragment).commit();
-//                Intent intent = new Intent(getContext(), ProjectInfoActivity.class);
-//                intent.putExtra("admin", projectList.get(position).getAdminProject());
-//                intent.putExtra("collaborators", projectList.get(position).getCollaborators());
-//                intent.putExtra("description", projectList.get(position).getDescription());
-//                intent.putExtra("idProject", projectList.get(position).getIdProject());
-//                intent.putExtra("nameProject",projectList.get(position).getNameProject());
-//                intent.putExtra("task",projectList.get(position).getTasksProject());
-//                startActivity(intent);
             }
         }));
 
