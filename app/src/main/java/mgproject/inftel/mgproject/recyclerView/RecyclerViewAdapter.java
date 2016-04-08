@@ -1,6 +1,8 @@
 package mgproject.inftel.mgproject.recyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private String url;
     private Context context;
     private MGApp mMGappInstance;
+    Drawable image1;
+    Drawable image2;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -53,6 +57,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mTextView.setText(projectList.get(position).getNameProject());
+
+        if(projectList.get(position).getAdminProject().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
+            holder.mImageBackground.setBackgroundResource(R.color.primary_light);
+        }else{
+            holder.mImageBackground.setBackgroundResource(R.color.collaborator);
+        }
 
 
     }

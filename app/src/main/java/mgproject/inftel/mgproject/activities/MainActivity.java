@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
 
         this.mMGappInstance = MGApp.getmInstance();
-        String url = mMGappInstance.getServerUri()+"project/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
+        String url = mMGappInstance.getServerUri()+"myproject/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
         new RequestProject(this).execute(url);
     }
 
