@@ -1,5 +1,8 @@
 package mgproject.inftel.mgproject.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +16,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.fragment.LoadingFragment;
 import mgproject.inftel.mgproject.fragment.ProjectFragment;
 import mgproject.inftel.mgproject.model.Project;
@@ -24,9 +36,13 @@ import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
 import mgproject.inftel.mgproject.util.RequestProject;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,  GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
     ArrayList<Project> projectList = null;
     private MGApp mMGappInstance;
+
+    private GoogleApiClient mGoogleApiClient;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +61,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+
+        //Get the user
+        user = User.getInstance();
+        printUserInformation(header);
+
+        // Create an instance of GoogleAPIClient.
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API)
+                    .build();
+        }
+
         //FRagmento de carga
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
@@ -52,6 +84,16 @@ public class MainActivity extends AppCompatActivity
         this.mMGappInstance = MGApp.getmInstance();
         String url = mMGappInstance.getServerUri()+"myproject/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
         new RequestProject(this).execute(url);
+    }
+
+    public void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -97,12 +139,52 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_collaborator) {
 
         } else if (id == R.id.nav_logout) {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
 
+            user = null;
+
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            editor.putString("email", "");
+            editor.putString("username", "");
+            editor.putString("photo", "");
+            editor.putString("idUser", "");
+            editor.commit();
+
+            Intent logoutIntent = new Intent(this, LoginActivity.class);
+            startActivity(logoutIntent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void printUserInformation (View header) {
+        TextView textUserName = (TextView) header.findViewById(R.id.nickNameMenu);
+        textUserName.setText(user.getUsername());
+
+        ImageView userImage = (ImageView) header.findViewById(R.id.imageView);
+        if(!user.getPhoto().equals("")){
+            Picasso.with(this).load(user.getPhoto()).into(userImage);
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 
 
