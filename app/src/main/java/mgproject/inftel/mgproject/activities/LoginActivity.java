@@ -53,11 +53,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         String email = sharedPref.getString("email", "");
         String username = sharedPref.getString("username", "");
         String photo = sharedPref.getString("photo", "");
+        String id = sharedPref.getString("idUser","");
         if (!email.equals("")){
             User user = User.getInstance();
             user.setEmail(email);
             user.setPhoto(photo);
             user.setUsername(username);
+            user.setIdGoogleUser(id);
+
+            MGApp.getmInstance().setUser(user);
+
             goMainActivity(user, false);
 
         } else { //Login
