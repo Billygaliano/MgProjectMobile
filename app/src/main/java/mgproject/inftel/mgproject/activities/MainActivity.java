@@ -153,8 +153,21 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_project) {
-            // Handle the camera action
+
+            LoadingFragment loadingFragment = new LoadingFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+
+            String url = mMGappInstance.getServerUri()+"project/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
+            new RequestProject(this,"projectUser",null).execute(url);
+
+
         } else if (id == R.id.nav_collaborator) {
+
+            LoadingFragment loadingFragment = new LoadingFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+
+            String url = mMGappInstance.getServerUri()+"projectCollaborations/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
+            new RequestProject(this,"projectUser",null).execute(url);
 
         } else if (id == R.id.nav_logout) {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient);
