@@ -2,6 +2,7 @@ package mgproject.inftel.mgproject.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,17 +16,23 @@ import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.activities.MGApp;
+import mgproject.inftel.mgproject.model.Attatch;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.util.RequestCollaborators;
+import mgproject.inftel.mgproject.model.Task;
 
 public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 4 ;
+    private Project project;
+    private ArrayList<Task> tasksList;
     public ArrayList<User> collaboratorsList;
+    public ArrayList<Attatch> attatchList;
     private CoollaboratorsFragment coollaboratorsFragment;
+    private FilesFragment filesFragment;
 
     @Nullable
     @Override
@@ -36,8 +43,13 @@ public class TabFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) this.getActivity().findViewById(R.id.addProject);
+        floatingActionButton.hide();
+
+
         Bundle projectBundle = getArguments();
-        Project project = projectBundle.getParcelable("project");
+        project = projectBundle.getParcelable("project");
+        tasksList = projectBundle.getParcelableArrayList("taskList");
 
         System.out.println("Admin del proyecto" + project.getAdminProject());
 
@@ -59,6 +71,8 @@ public class TabFragment extends Fragment {
             }
         });
 
+
+
         return x;
 
     }
@@ -77,11 +91,22 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position)
         {
           switch (position){
-              case 0 : return new DescriptionFragment();
-              case 1 : return new TasksFragment();
+              case 0 :
+                  Bundle descriptionParam = new Bundle();
+
+                  descriptionParam.putString("description", project.getDescription());
+                  descriptionParam.putParcelableArrayList("tasksList", tasksList);
+
+                  DescriptionFragment descriptionFragment = new DescriptionFragment();
+                  descriptionFragment.setArguments(descriptionParam);
+
+                  return descriptionFragment;
+              case 1 :
+                  return new TasksFragment();
               case 2 :
                   return coollaboratorsFragment;
-              case 3 : return new FilesFragment();
+              case 3 :
+                  return  filesFragment;
           }
         return null;
         }
@@ -113,6 +138,17 @@ public class TabFragment extends Fragment {
                 return null;
         }
     }
+
+    public void showTaskListFragment(ArrayList<Task> taskList) {
+        tasksList = taskList;
+        TasksFragment tasksFragment= new TasksFragment();
+        DescriptionFragment descriptionFragment = new DescriptionFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("taskList", taskList);
+        tasksFragment.setArguments(bundle);
+        descriptionFragment.setArguments(bundle);
+    }
     public void showCollaborators(ArrayList< User > collaboratorsList) {
         this.collaboratorsList = collaboratorsList;
 
@@ -121,5 +157,15 @@ public class TabFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("collaboratorsList", collaboratorsList);
         coollaboratorsFragment.setArguments(bundle);
+    }
+
+    public void showAttatch(ArrayList<Attatch> filesList){
+        this.attatchList = filesList;
+
+        this.filesFragment = new FilesFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("attatchList",attatchList);
+        filesFragment.setArguments(bundle);
     }
 }

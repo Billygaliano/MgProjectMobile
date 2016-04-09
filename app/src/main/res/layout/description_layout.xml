@@ -1,29 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/priority_tasks"
+        android:layout_above="@+id/textView">
+
+        <TextView
+            android:layout_toLeftOf="@+id/sudden_textView"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:id="@+id/pressing_textView"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:text="0"
+            android:layout_gravity="center_horizontal"
+            android:autoText="false"
+            android:textStyle="bold"
+            android:background="#cf0000" />
+
+        <TextView
+            android:layout_toLeftOf="@+id/planned_textView"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:id="@+id/sudden_textView"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:text="0"
+            android:layout_gravity="center_horizontal"
+            android:autoText="false"
+            android:textStyle="bold"
+            android:background="#ffae00" />
+
+        <TextView
+            android:layout_toLeftOf="@+id/accessory_textView"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:id="@+id/planned_textView"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffffff"
+            android:text="0"
+            android:layout_gravity="center_horizontal"
+            android:autoText="false"
+            android:textStyle="bold"
+            android:background="#00ae40" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:textSize="30sp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:id="@+id/accessory_textView"
+            android:textColor="#ffffff"
+            android:text="0"
+            android:layout_gravity="center_horizontal"
+            android:autoText="false"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:background="#007dfa" />
+    </LinearLayout>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:textSize="30sp"
         android:gravity="center"
         android:id="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:textColor="@android:color/holo_blue_dark"
-        android:text="Primary\nFragment"/>
+        android:textColor="#717682"
+        android:text="Descripción del proyecto"
+        android:layout_gravity="center_horizontal"
+        android:autoText="false"
+        android:textStyle="bold|italic"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:text="androidbelieve.com"
-        android:textColor="#000"
-        android:layout_below="@+id/textView"
-        android:textStyle="italic"/>
-
-</RelativeLayout>
+</LinearLayout>

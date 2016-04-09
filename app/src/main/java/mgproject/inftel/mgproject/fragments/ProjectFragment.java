@@ -3,6 +3,7 @@ package mgproject.inftel.mgproject.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,10 @@ import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestAttatch;
 import mgproject.inftel.mgproject.util.RequestCollaborators;
+import mgproject.inftel.mgproject.util.RequestProject;
+import mgproject.inftel.mgproject.util.RequestTask;
 
 /**
  * Created by andresbailen93 on 7/4/16.
@@ -32,6 +36,8 @@ public class ProjectFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Project> projectList;
 
+    private MGApp mMGappInstance;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class ProjectFragment extends Fragment {
         projectList = bundle.getParcelableArrayList("projectList");
 
 
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -49,26 +56,32 @@ public class ProjectFragment extends Fragment {
         mAdapter = new RecyclerViewAdapter( projectList,this.getContext());
         mRecyclerView.setAdapter(mAdapter);
 
-
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Project project = projectList.get(position);
+
                 Bundle projectParam = new Bundle();
                 projectParam.putParcelable("project", project);
-                TabFragment tabProjectFragment = new TabFragment();
-                tabProjectFragment.setArguments(projectParam);
+
+
+                TabFragment tabFragment = new TabFragment();
+                tabFragment.setArguments(projectParam);
                 //Guardar project en la sesion
                 MGApp.getmInstance().setProject(projectList.get(position));
 
-                new RequestCollaborators(tabProjectFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+                new RequestCollaborators(tabFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+                new RequestAttatch(tabFragment).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabProjectFragment).commit();
+                String idProject = Long.toString(project.getIdProject());
+
+                new RequestTask(tabFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabFragment).commit();
             }
         }));
 
         return view;
     }
-
 
 }

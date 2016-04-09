@@ -122,6 +122,7 @@ public class User implements Serializable, Parcelable {
 
     }
 
+
     @Override
     public int describeContents() {
         return 0;
