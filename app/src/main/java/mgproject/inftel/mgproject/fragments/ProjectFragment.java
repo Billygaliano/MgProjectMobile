@@ -74,7 +74,6 @@ public class ProjectFragment extends Fragment {
                 new RequestAttatch(tabFragment).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
 
                 String idProject = Long.toString(project.getIdProject());
-                System.out.println("URL: " + mMGappInstance.getServerUri() + "task/" + idProject);
 
                 new RequestTask(tabFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
 
