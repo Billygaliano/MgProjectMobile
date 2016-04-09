@@ -1,9 +1,6 @@
 package mgproject.inftel.mgproject.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +12,11 @@ import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.activities.MGApp;
-import mgproject.inftel.mgproject.activities.MainActivity;
-import mgproject.inftel.mgproject.activities.ProjectInfoActivity;
 import mgproject.inftel.mgproject.model.Project;
-import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
 import mgproject.inftel.mgproject.util.RequestAttatch;
 import mgproject.inftel.mgproject.util.RequestCollaborators;
-import mgproject.inftel.mgproject.util.RequestProject;
 import mgproject.inftel.mgproject.util.RequestTask;
 
 /**

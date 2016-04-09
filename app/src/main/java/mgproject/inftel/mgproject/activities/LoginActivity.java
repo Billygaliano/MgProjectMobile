@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             user.setUsername(acct.getDisplayName());
             user.setIdGoogleUser(acct.getId());
             MGApp.getmInstance().setUser(user);
-            new RequestUser().execute(this.serverUri + "user");
+            new RequestUser(this,"loginUser").execute(this.serverUri + "user");
             goMainActivity(user, true);
 
         } else {

@@ -68,6 +68,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        FloatingActionButton fabCollaborator = (FloatingActionButton) findViewById(R.id.addCollaborator);
+        fabCollaborator.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AddCollaboratorActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

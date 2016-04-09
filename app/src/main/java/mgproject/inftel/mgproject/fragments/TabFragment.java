@@ -1,5 +1,6 @@
 package mgproject.inftel.mgproject.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,8 @@ public class TabFragment extends Fragment {
     public ArrayList<Attatch> attatchList;
     private CoollaboratorsFragment coollaboratorsFragment;
     private FilesFragment filesFragment;
+    private FloatingActionButton fabAddProject;
+    private FloatingActionButton fabAddCollaborator;
 
     @Nullable
     @Override
@@ -43,8 +46,10 @@ public class TabFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-        FloatingActionButton floatingActionButton = (FloatingActionButton) this.getActivity().findViewById(R.id.addProject);
-        floatingActionButton.hide();
+        this.fabAddProject = (FloatingActionButton) this.getActivity().findViewById(R.id.addProject);
+        fabAddProject.hide();
+        this.fabAddCollaborator = (FloatingActionButton) this.getActivity().findViewById(R.id.addCollaborator);
+        fabAddCollaborator.setVisibility(View.VISIBLE);
 
 
         Bundle projectBundle = getArguments();
@@ -56,7 +61,7 @@ public class TabFragment extends Fragment {
         /**
          *Set an Apater for the View Pager
          */
-        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new MyAdapter(getChildFragmentManager(),this));
 
         /**
          * Now , this is a workaround ,
@@ -78,9 +83,10 @@ public class TabFragment extends Fragment {
     }
 
     class MyAdapter extends FragmentPagerAdapter {
-
-        public MyAdapter(FragmentManager fm) {
+        private TabFragment tabFragment;
+        public MyAdapter(FragmentManager fm,TabFragment tabFragment) {
             super(fm);
+            this.tabFragment = tabFragment;
         }
 
         /**
@@ -99,7 +105,6 @@ public class TabFragment extends Fragment {
 
                   DescriptionFragment descriptionFragment = new DescriptionFragment();
                   descriptionFragment.setArguments(descriptionParam);
-
                   return descriptionFragment;
               case 1 :
                   return new TasksFragment();
@@ -134,6 +139,8 @@ public class TabFragment extends Fragment {
                     return "Colaboradores";
                 case 3:
                     return "Ficheros";
+                case 4:
+                    return "Chat";
             }
                 return null;
         }
