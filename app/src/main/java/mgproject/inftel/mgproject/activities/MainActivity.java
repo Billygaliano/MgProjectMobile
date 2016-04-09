@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MotionEventCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,6 +59,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.addProject);
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AddProjectActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity
 
         this.mMGappInstance = MGApp.getmInstance();
         String url = mMGappInstance.getServerUri()+"myproject/"+mMGappInstance.getmInstance().getUser().getIdGoogleUser();
-        new RequestProject(this).execute(url);
+        new RequestProject(this,"projectUser",null).execute(url);
     }
 
     public void onStart() {
@@ -100,6 +112,7 @@ public class MainActivity extends AppCompatActivity
         mGoogleApiClient.disconnect();
         super.onStop();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -192,14 +205,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void showPlaceListFragment(ArrayList<Project> projectList) {
+    public void showProjectListFragment(ArrayList<Project> projectList) {
         this.projectList = projectList;
-        ProjectFragment placeListFragment = new ProjectFragment();
+        ProjectFragment projectListFragment = new ProjectFragment();
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("projectList", projectList);
-        placeListFragment.setArguments(bundle);
+        projectListFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, placeListFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
     }
 }

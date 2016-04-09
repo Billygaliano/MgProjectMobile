@@ -3,6 +3,7 @@ package mgproject.inftel.mgproject.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,6 +48,7 @@ public class ProjectFragment extends Fragment {
         projectList = bundle.getParcelableArrayList("projectList");
 
 
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -70,10 +72,9 @@ public class ProjectFragment extends Fragment {
 
                 new RequestCollaborators(tabFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
                 new RequestAttatch(tabFragment).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabFragment).commit();
 
                 String idProject = Long.toString(project.getIdProject());
-                System.out.println("URL: " + mMGappInstance.getServerUri()+"task/"+idProject);
+                System.out.println("URL: " + mMGappInstance.getServerUri() + "task/" + idProject);
 
                 new RequestTask(tabFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
 
@@ -83,6 +84,5 @@ public class ProjectFragment extends Fragment {
 
         return view;
     }
-
 
 }

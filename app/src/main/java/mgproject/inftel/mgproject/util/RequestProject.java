@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.AddProjectActivity;
 import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
@@ -28,20 +30,52 @@ import mgproject.inftel.mgproject.model.User;
  */
 public class  RequestProject extends AsyncTask<String,Void,String> {
     private Context context;
+    private String action;
+    private JSONObject json;
 
-    public RequestProject(Context context) {
+    public RequestProject(Context context,String action,JSONObject json) {
         this.context = context;
+        this.action = action;
+        this.json = json;
     }
 
     @Override
     protected String doInBackground(String... url) {
         try {
-            return projectUser(url[0]);
+            if(this.action.equals("projectUser")) {
+                return projectUser(url[0]);
+            }else if(this.action.equals("addProject")){
+                return addProject(url[0]);
+            }else{
+                return null;
+            }
 
         } catch (IOException e) {
             Log.d("Login", "Unable to retrieve web page. URL may be invalid.");
             return null;
         }
+    }
+    private String addProject(String myurl) throws IOException{
+        StringBuilder response = new StringBuilder();
+
+        try {
+            URL obj = new URL(myurl);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
+
+            DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
+            dStream.flush(); // Flushes the data output stream.
+            dStream.close();
+
+            connection.getResponseCode();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private String projectUser(String myurl) throws IOException {
@@ -75,19 +109,27 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result){
-        try {
-            ArrayList<Project> projectList = new ArrayList<Project>();
-            JSONArray jsonArray = new JSONArray(result);
-            for (int i = 0; i < jsonArray.length(); i++){
-                Project p = Project.fromJSON(jsonArray.get(i).toString());
-                projectList.add(p);
+
+        if(this.action.equals("projectUser")) {
+            try {
+                ArrayList<Project> projectList = new ArrayList<Project>();
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Project p = Project.fromJSON(jsonArray.get(i).toString());
+                    projectList.add(p);
+                }
+                ((MainActivity) this.context).showProjectListFragment(projectList);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            ((MainActivity) this.context).showPlaceListFragment(projectList);
+        }else if(this.action.equals("addProject")){
 
+            ((AddProjectActivity)this.context).finish();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
 
 
     }

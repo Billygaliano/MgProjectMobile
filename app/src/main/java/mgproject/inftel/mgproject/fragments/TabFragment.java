@@ -2,6 +2,7 @@ package mgproject.inftel.mgproject.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,6 +43,10 @@ public class TabFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        FloatingActionButton floatingActionButton = (FloatingActionButton) this.getActivity().findViewById(R.id.addProject);
+        floatingActionButton.hide();
+
+
         Bundle projectBundle = getArguments();
         project = projectBundle.getParcelable("project");
         tasksList = projectBundle.getParcelableArrayList("taskList");
@@ -65,6 +70,8 @@ public class TabFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+
+
 
         return x;
 
