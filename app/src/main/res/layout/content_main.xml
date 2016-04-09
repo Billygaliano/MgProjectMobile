@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_account_plus_white_48dp"
+            android:src="@drawable/ic_collaborator"
             android:visibility="gone"
             />
     </FrameLayout>
