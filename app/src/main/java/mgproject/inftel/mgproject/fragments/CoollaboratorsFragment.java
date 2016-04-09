@@ -1,5 +1,7 @@
 package mgproject.inftel.mgproject.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.model.User;
+import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewCollaborator;
 
 public class CoollaboratorsFragment extends Fragment {
@@ -24,7 +27,7 @@ public class CoollaboratorsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collaborators_list,container,false);
         Bundle bundle = getArguments();
         collaboratorsList = bundle.getParcelableArrayList("collaboratorsList");
@@ -35,6 +38,21 @@ public class CoollaboratorsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new RecyclerViewCollaborator(collaboratorsList,this.getContext());
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+                User user = collaboratorsList.get(position);
+                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                sendIntent.setType("plain/text");
+                sendIntent.setData(Uri.parse(user.getEmail()));
+                sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+
+                startActivity(sendIntent);
+
+            }
+        }));
         return view;
     }
 }
