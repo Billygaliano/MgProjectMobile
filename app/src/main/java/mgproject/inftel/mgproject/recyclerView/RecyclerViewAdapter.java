@@ -1,13 +1,11 @@
 package mgproject.inftel.mgproject.recyclerView;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Project;
-import mgproject.inftel.mgproject.util.RequestProject;
 
 /**
  * Created by andresbailen93 on 7/4/16.
@@ -59,9 +56,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTextView.setText(projectList.get(position).getNameProject());
 
         if(projectList.get(position).getAdminProject().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
-            holder.mImageBackground.setBackgroundResource(R.color.project);
+            holder.mImageBackground.setBackgroundResource(R.drawable.icon);
         }else{
-            holder.mImageBackground.setBackgroundResource(R.color.collaborator);
+            holder.mImageBackground.setBackgroundResource(R.drawable.icon_etiq);
         }
 
 

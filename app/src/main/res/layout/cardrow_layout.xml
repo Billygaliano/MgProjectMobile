@@ -11,7 +11,7 @@ android:layout_margin="8dp">
 <RelativeLayout
     android:id="@+id/backgroundImage"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="70dp"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,8 +20,11 @@ android:layout_margin="8dp">
             android:id="@+id/projectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:text="@string/proyectoName"
+            android:textColor="@color/icons"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
             android:textSize="24dp" />
     </RelativeLayout>
 </RelativeLayout>
