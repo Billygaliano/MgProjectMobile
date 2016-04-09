@@ -8,5 +8,6 @@
     <color name="secondary_text">#727272</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
-    <color name="collaborator">#5ce75a</color>
+    <color name="collaborator">#00B2EE</color>
+    <color name="project">#059B45</color>
 </resources>

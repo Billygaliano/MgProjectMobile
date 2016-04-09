@@ -59,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTextView.setText(projectList.get(position).getNameProject());
 
         if(projectList.get(position).getAdminProject().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
-            holder.mImageBackground.setBackgroundResource(R.color.primary_light);
+            holder.mImageBackground.setBackgroundResource(R.color.project);
         }else{
             holder.mImageBackground.setBackgroundResource(R.color.collaborator);
         }
