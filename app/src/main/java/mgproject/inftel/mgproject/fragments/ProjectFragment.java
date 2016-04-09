@@ -20,6 +20,7 @@ import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
+import mgproject.inftel.mgproject.util.RequestAttatch;
 import mgproject.inftel.mgproject.util.RequestCollaborators;
 import mgproject.inftel.mgproject.util.RequestProject;
 import mgproject.inftel.mgproject.util.RequestTask;
@@ -61,19 +62,22 @@ public class ProjectFragment extends Fragment {
                 Bundle projectParam = new Bundle();
                 projectParam.putParcelable("project", project);
 
-                TabFragment tabProjectFragment = new TabFragment();
-                tabProjectFragment.setArguments(projectParam);
+
+                TabFragment tabFragment = new TabFragment();
+                tabFragment.setArguments(projectParam);
                 //Guardar project en la sesion
                 MGApp.getmInstance().setProject(projectList.get(position));
 
-                new RequestCollaborators(tabProjectFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+                new RequestCollaborators(tabFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+                new RequestAttatch(tabFragment).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabFragment).commit();
 
                 String idProject = Long.toString(project.getIdProject());
                 System.out.println("URL: " + mMGappInstance.getServerUri()+"task/"+idProject);
 
-                new RequestTask(tabProjectFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
+                new RequestTask(tabFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabProjectFragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabFragment).commit();
             }
         }));
 

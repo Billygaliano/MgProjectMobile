@@ -22,6 +22,7 @@ public class CoollaboratorsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<User> collaboratorsList;
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collaborators_list,container,false);

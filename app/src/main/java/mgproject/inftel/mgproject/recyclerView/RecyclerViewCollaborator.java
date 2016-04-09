@@ -19,7 +19,7 @@ import mgproject.inftel.mgproject.model.User;
 /**
  * Created by andresbailen93 on 8/4/16.
  */
-public class RecyclerViewCollaborator  extends RecyclerView.Adapter<RecyclerViewCollaborator.ViewHolder> {
+public class RecyclerViewCollaborator extends RecyclerView.Adapter<RecyclerViewCollaborator.ViewHolder> {
     private Context context;
     private ArrayList<User> collaboratorsList;
 
@@ -46,7 +46,9 @@ public class RecyclerViewCollaborator  extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(RecyclerViewCollaborator.ViewHolder holder, int position) {
-        Picasso.with(this.context).load(collaboratorsList.get(position).getPhoto()).into(holder.circleImageView);
+        if(!collaboratorsList.get(position).getPhoto().equals("undefined")) {
+            Picasso.with(this.context).load(collaboratorsList.get(position).getPhoto()).into(holder.circleImageView);
+        }
         holder.mTextView.setText(collaboratorsList.get(position).getUsername());
     }
 
