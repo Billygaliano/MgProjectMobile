@@ -11,7 +11,7 @@ import mgproject.inftel.mgproject.model.User;
  * Created by andresbailen93 on 7/4/16.
  */
 public class MGApp extends Application {
-    private static String serverUri = "http://192.168.1.37:8080/MgProjectRest/webresources/mgproject.service/";
+    private static String serverUri = "http://192.168.0.159:8080/MgProjectRest/webresources/mgproject.service/";
     private GoogleApiClient mGoogleApiClient;
     private static MGApp mInstance;
     private User user;

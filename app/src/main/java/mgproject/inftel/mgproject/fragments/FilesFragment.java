@@ -30,30 +30,36 @@ public class FilesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_file_list, container, false);
+
         Bundle bundle = getArguments();
         attatchArrayList = bundle.getParcelableArrayList("attatchList");
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.file_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecyclerViewFiles(attatchArrayList,this.getContext());
-        mRecyclerView.setAdapter(mAdapter);
+        if(!attatchArrayList.isEmpty()){
+            view = inflater.inflate(R.layout.fragment_file_list, container, false);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.file_recycler_view);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(getContext());
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mAdapter = new RecyclerViewFiles(attatchArrayList,this.getContext());
+            mRecyclerView.setAdapter(mAdapter);
 
-            @Override
-            public void onItemClick(View view, int position) {
-                Attatch attatch = attatchArrayList.get(position);
-                urlAttachment = urlAttachment + attatch.getUrlFile();
-                Log.d("URL", urlAttachment);
-                Intent intent = null;
-                intent = new Intent(intent.ACTION_VIEW,Uri.parse(urlAttachment));
-                startActivity(intent);
+            mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), new RecyclerItemClickListener.OnItemClickListener() {
 
-            }
-        }));
+                @Override
+                public void onItemClick(View view, int position) {
+                    Attatch attatch = attatchArrayList.get(position);
+                    urlAttachment = urlAttachment + attatch.getUrlFile();
+                    Log.d("URL", urlAttachment);
+                    Intent intent = null;
+                    intent = new Intent(intent.ACTION_VIEW,Uri.parse(urlAttachment));
+                    startActivity(intent);
+
+                }
+            }));
+        }else{
+            view = inflater.inflate(R.layout.empty_files_layout, container, false);
+        }
 
         return view;
     }

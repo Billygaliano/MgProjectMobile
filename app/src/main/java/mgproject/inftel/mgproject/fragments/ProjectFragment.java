@@ -63,12 +63,9 @@ public class ProjectFragment extends Fragment {
                 //Guardar project en la sesion
                 MGApp.getmInstance().setProject(projectList.get(position));
 
+                new RequestTask(tabFragment).execute(MGApp.getServerUri() + "task/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
                 new RequestCollaborators(tabFragment).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
                 new RequestAttatch(tabFragment).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
-
-                String idProject = Long.toString(project.getIdProject());
-
-                new RequestTask(tabFragment).execute(mMGappInstance.getServerUri()+"task/"+idProject);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, tabFragment).commit();
             }

@@ -7,24 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import mgproject.inftel.mgproject.R;
-import mgproject.inftel.mgproject.model.Task;
 
-public class TasksFragment extends Fragment {
-    private View view;
-    ArrayList<Task> tasksList;
-
+/**
+ * Created by Guillermo on 10/04/2016.
+ */
+public class ChatFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle tasksBundle = getArguments();
-        view = inflater.inflate(R.layout.tasks_layout, container, false);
-        //tasksList = tasksBundle.getParcelableArrayList("taskList");
-
-        return view;
+        return inflater.inflate(R.layout.chat_layout,null);
     }
-
-
 }

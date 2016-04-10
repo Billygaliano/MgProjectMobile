@@ -27,13 +27,14 @@ public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 4 ;
+    public static int int_items = 5 ;
     private Project project;
     private ArrayList<Task> tasksList;
     public ArrayList<User> collaboratorsList;
     public ArrayList<Attatch> attatchList;
     private CoollaboratorsFragment coollaboratorsFragment;
     private FilesFragment filesFragment;
+    private TasksFragment tasksFragment;
     private FloatingActionButton fabAddProject;
     private FloatingActionButton fabAddCollaborator;
 
@@ -76,8 +77,6 @@ public class TabFragment extends Fragment {
             }
         });
 
-
-
         return x;
 
     }
@@ -101,7 +100,7 @@ public class TabFragment extends Fragment {
                   Bundle descriptionParam = new Bundle();
 
                   descriptionParam.putString("description", project.getDescription());
-                  descriptionParam.putParcelableArrayList("tasksList", tasksList);
+                  //descriptionParam.putParcelableArrayList("tasksList", tasksList);
 
                   DescriptionFragment descriptionFragment = new DescriptionFragment();
                   descriptionFragment.setArguments(descriptionParam);
@@ -111,7 +110,9 @@ public class TabFragment extends Fragment {
               case 2 :
                   return coollaboratorsFragment;
               case 3 :
-                  return  filesFragment;
+                  return filesFragment;
+              case 4 :
+                  return new ChatFragment();
           }
         return null;
         }
@@ -132,11 +133,11 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Descripción";
+                    return "Resumen";
                 case 1 :
                     return "Tareas";
                 case 2 :
-                    return "Colaboradores";
+                    return "Equipo";
                 case 3:
                     return "Ficheros";
                 case 4:
@@ -149,13 +150,23 @@ public class TabFragment extends Fragment {
     public void showTaskListFragment(ArrayList<Task> taskList) {
         tasksList = taskList;
         TasksFragment tasksFragment= new TasksFragment();
-        DescriptionFragment descriptionFragment = new DescriptionFragment();
+        System.out.println("Tamaño de la lista de tares: " + taskList.size());
+        //DescriptionFragment descriptionFragment = new DescriptionFragment();
 
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("taskList", taskList);
         tasksFragment.setArguments(bundle);
-        descriptionFragment.setArguments(bundle);
+        //descriptionFragment.setArguments(bundle);
+
+//        tasksList = taskList;
+//        System.out.println("Tamaño de la lista de tares: " + taskList.size());
+//        tasksFragment= new TasksFragment();
+//
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelableArrayList("taskList", tasksList);
+//        tasksFragment.setArguments(bundle);
     }
+
     public void showCollaborators(ArrayList< User > collaboratorsList) {
         this.collaboratorsList = collaboratorsList;
 

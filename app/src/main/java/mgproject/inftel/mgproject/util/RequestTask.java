@@ -14,12 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.fragments.TabFragment;
 import mgproject.inftel.mgproject.model.Task;
 
 /**
- * Created by inftel23 on 8/4/16.
+ * Created by Guillermo on 8/4/16.
  */
 public class RequestTask extends AsyncTask<String,Void,String> {
     private Context context;
@@ -80,11 +79,9 @@ public class RequestTask extends AsyncTask<String,Void,String> {
             JSONArray jsonArray = new JSONArray(result);
             for (int i = 0; i < jsonArray.length(); i++){
                 Task t = Task.fromJSON(jsonArray.get(i).toString());
-                System.out.println("Prueba 1: " + t.getNameTask());
+                System.out.println("Nombre tarea: " + t.getNameTask());
                 taskList.add(t);
             }
-
-            System.out.println("Prueba 2: " + taskList.isEmpty());
 
             fragment.showTaskListFragment(taskList);
 
