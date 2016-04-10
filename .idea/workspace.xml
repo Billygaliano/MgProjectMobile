@@ -31,7 +31,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce63884e-a76c-46d0-9ded-37df3036a24f" name="Default" comment="[UPD] Añadidas algunas mejoras de código y visualización.">
+    <list default="true" id="ce63884e-a76c-46d0-9ded-37df3036a24f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MgProjectMobile.iws" />
@@ -2690,7 +2690,13 @@
       <option name="project" value="LOCAL" />
       <updated>1460283726027</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="[UPD] Añadidas algunas mejoras de código y visualización.">
+      <created>1460283817057</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1460283817057</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
