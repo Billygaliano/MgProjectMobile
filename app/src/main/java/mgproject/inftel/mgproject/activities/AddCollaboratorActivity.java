@@ -41,11 +41,9 @@ public class AddCollaboratorActivity extends AppCompatActivity {
     public void onClickButton(View view) throws JSONException {
        JSONObject jsonUser = new JSONObject();
         jsonUser = User.toJSON((User)spinner.getSelectedItem());
-        System.out.println(jsonUser.toString());
-
 
         String url = MGApp.getServerUri()+"project/"+MGApp.getmInstance().getProject().getIdProject();
-        new RequestProject(this,"addProject",jsonUser).execute(url);
+        new RequestProject(this,"addCollaborator",jsonUser).execute(url);
 
 
     }
