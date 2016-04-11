@@ -4,14 +4,19 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
+import mgproject.inftel.mgproject.activities.AddCollaboratorActivity;
 import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.User;
 
@@ -62,8 +67,28 @@ public class RequestUser extends AsyncTask<String,Void,String>{
     @Override
     protected void onPostExecute(String json) {
 
+        if(this.action.equals("getUsers")){
+            try {
+                ArrayList<User> userList = new ArrayList<User>();
+                JSONArray jsonArray = new JSONArray(json);
+                for (int i = 0; i < jsonArray.length(); i++){
+
+                    User u = User.fromJSON(jsonArray.get(i).toString());
+                    userList.add(u);
+
+                }
+                ((AddCollaboratorActivity) this.context).updateSpinner(userList);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
     private String getUsers(String myurl) throws IOException{
+        StringBuilder response = new StringBuilder();
         User user = User.getInstance();
         String getURL = myurl;
 
@@ -77,19 +102,14 @@ public class RequestUser extends AsyncTask<String,Void,String>{
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setReadTimeout(10000 /* milliseconds */);
         conn.setConnectTimeout(15000 /* milliseconds */);
-        conn.setRequestMethod("POST");
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setRequestMethod("GET");
 
-        JSONObject jsonObject = user.toJSON(user);
-        System.out.println(jsonObject.toString());
-        Log.e("POST",jsonObject.toString());
 
-        OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
-        wr.write(jsonObject.toString());
-        wr.flush();
-        wr.close();
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String line = "";
+        while ((line = br.readLine()) != null) {
+            response.append(line);
+        }
 
         // Starts the query
         conn.connect();
@@ -100,7 +120,7 @@ public class RequestUser extends AsyncTask<String,Void,String>{
 
         con.disconnect();
 
-        return "";
+        return response.toString();
     }
 
     private String loginUser(String myurl) throws IOException {

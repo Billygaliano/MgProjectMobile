@@ -25,7 +25,7 @@ public class FilesFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Attatch> attatchArrayList;
-    private String urlAttachment = "http://192.168.1.37:8080/MgProjects-war/faces/";
+    private String urlAttachment = "http://192.168.1.134:8080/MgProjects-war/faces/";
 
     @Nullable
     @Override

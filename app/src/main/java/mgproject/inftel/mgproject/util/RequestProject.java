@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.activities.AddProjectActivity;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
@@ -61,7 +63,9 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
         try {
             URL obj = new URL(myurl);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("PUT");
             connection.setDoOutput(true);
+            connection.setDoInput(true);
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
@@ -125,8 +129,10 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             }
         }else if(this.action.equals("addProject")){
+            Toast toast = Toast.makeText(context,"Colaborador añadido", Toast.LENGTH_SHORT);
+            toast.show();
 
-            ((AddProjectActivity)this.context).finish();
+            //((AddProjectActivity)this.context).finish();
 
         }
 

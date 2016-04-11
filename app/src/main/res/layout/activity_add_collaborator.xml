@@ -54,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Añadir usuario"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="onClickButton"/>
 
         </LinearLayout>
     </ScrollView>
