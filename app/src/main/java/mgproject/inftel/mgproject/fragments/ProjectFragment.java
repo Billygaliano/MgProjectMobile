@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
 import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.model.Project;
+import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewAdapter;
 import mgproject.inftel.mgproject.util.RequestAttatch;
@@ -32,6 +35,10 @@ public class ProjectFragment extends Fragment {
     private ArrayList<Project> projectList;
 
     private MGApp mMGappInstance;
+
+    private GoogleApiClient mGoogleApiClient;
+    private User user;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

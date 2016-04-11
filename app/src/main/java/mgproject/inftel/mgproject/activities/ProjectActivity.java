@@ -7,8 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +43,8 @@ public class ProjectActivity extends AppCompatActivity implements NavigationView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         FloatingActionButton fabCollaborator = (FloatingActionButton) findViewById(R.id.addCollaborator);
         fabCollaborator.setOnClickListener(new View.OnClickListener(){
@@ -51,6 +55,22 @@ public class ProjectActivity extends AppCompatActivity implements NavigationView
                 startActivity(intent);
             }
         });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+
+        //Get the user
+        user = MGApp.getmInstance().getUser();
+        printUserInformation(header);
+
 
         new RequestTask(this).execute(MGApp.getServerUri() + "task/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
         new RequestCollaborators(this).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
@@ -134,7 +154,7 @@ public class ProjectActivity extends AppCompatActivity implements NavigationView
     private void allLoad() {
         if (control == 3) {
             TabFragment tabFragment = new TabFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.frame_project, tabFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_project, tabFragment).commit();
         }
     }
 }

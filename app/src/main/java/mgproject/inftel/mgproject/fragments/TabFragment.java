@@ -28,14 +28,12 @@ public class TabFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 5 ;
-    private Project project;
     private ArrayList<Task> tasksList;
     public ArrayList<User> collaboratorsList;
     public ArrayList<Attatch> attatchList;
     private CoollaboratorsFragment coollaboratorsFragment;
     private FilesFragment filesFragment;
     private TasksFragment tasksFragment;
-    private FloatingActionButton fabAddProject;
     private FloatingActionButton fabAddCollaborator;
 
     @Nullable

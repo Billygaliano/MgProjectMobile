@@ -27,42 +27,41 @@ public class DescriptionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle descriptionBundle = getArguments();
 
         view = inflater.inflate(R.layout.description_layout, container, false);
         textView = (TextView) view.findViewById(R.id.textView);
         textView.setText(MGApp.getmInstance().getProject().getDescription());
-        //        tasksList = descriptionBundle.getParcelableArrayList("taskList");
-//
-//        for (int i=0; i<tasksList.size(); i++) {
-//            switch (tasksList.get(i).getPriority()){
-//                case "acuciante":
-//                    pressing++;
-//                    break;
-//                case "repentino":
-//                    sudden++;
-//                    break;
-//                case "plani":
-//                    planned++;
-//                    break;
-//                case "accesorio":
-//                    accesory++;
-//                    break;
-//            }
-//        }
-//
-//        pressing_textView = (TextView) view.findViewById(R.id.pressing_textView);
-//        pressing_textView.setText(descriptionBundle.getString(String.valueOf(pressing)));
-//
-//        sudden_textView = (TextView) view.findViewById(R.id.sudden_textView);
-//        sudden_textView.setText(descriptionBundle.getString(String.valueOf(sudden)));
-//
-//        planned_textView = (TextView) view.findViewById(R.id.planned_textView);
-//        planned_textView.setText(descriptionBundle.getString(String.valueOf(planned)));
-//
-//        accesory_textView = (TextView) view.findViewById(R.id.accessory_textView);
-//        accesory_textView.setText(descriptionBundle.getString(String.valueOf(accesory)));
+        tasksList = MGApp.getmInstance().getTaskList();
 
-        return view;
-    }
-}
+        for (int i = 0; i < tasksList.size(); i++) {
+            switch (tasksList.get(i).getPriority()) {
+                case "acuciante":
+                    pressing++;
+                    break;
+                case "repentino":
+                    sudden++;
+                    break;
+                case "plani":
+                    planned++;
+                    break;
+                case "accesorio":
+                    accesory++;
+                    break;
+            }
+        }
+
+        pressing_textView = (TextView) view.findViewById(R.id.pressing_textView);
+        pressing_textView.setText(String.valueOf(pressing));
+
+        sudden_textView = (TextView) view.findViewById(R.id.sudden_textView);
+        sudden_textView.setText(String.valueOf(sudden));
+
+        planned_textView = (TextView) view.findViewById(R.id.planned_textView);
+        planned_textView.setText(String.valueOf(planned));
+
+        accesory_textView = (TextView) view.findViewById(R.id.accessory_textView);
+        accesory_textView.setText(String.valueOf(accesory));
+
+                    return view;
+            }
+        }
