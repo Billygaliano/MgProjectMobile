@@ -87,12 +87,7 @@ public class User implements Serializable, Parcelable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "idGoogleUser='" + idGoogleUser + '\'' +
-                ", username='" + username + '\'' +
-                ", photo='" + photo + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return this.username;
     }
 
     public static JSONObject toJSON(User user){
