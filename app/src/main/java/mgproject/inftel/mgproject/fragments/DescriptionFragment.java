@@ -51,16 +51,16 @@ public class DescriptionFragment extends Fragment {
         }
 
         pressing_textView = (TextView) view.findViewById(R.id.pressing_textView);
-        pressing_textView.setText(String.valueOf(pressing));
+        pressing_textView.setText(String.valueOf(pressing)+" Tareas Acuciantes");
 
         sudden_textView = (TextView) view.findViewById(R.id.sudden_textView);
-        sudden_textView.setText(String.valueOf(sudden));
+        sudden_textView.setText(String.valueOf(sudden)+" Tareas Importantes");
 
         planned_textView = (TextView) view.findViewById(R.id.planned_textView);
-        planned_textView.setText(String.valueOf(planned));
+        planned_textView.setText(String.valueOf(planned)+" Tareas Planeadas");
 
         accesory_textView = (TextView) view.findViewById(R.id.accessory_textView);
-        accesory_textView.setText(String.valueOf(accesory));
+        accesory_textView.setText(String.valueOf(accesory)+" Tareas Accesorias");
                     pressing= 0;
                     sudden = 0;
         planned = 0;

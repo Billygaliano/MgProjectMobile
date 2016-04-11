@@ -50,7 +50,7 @@ public class RecyclerViewTask extends RecyclerView.Adapter<RecyclerViewTask.View
     @Override
     public void onBindViewHolder(RecyclerViewTask.ViewHolder holder, int position) {
         holder.mTextView.setText(taskArrayList.get(position).getNameTask());
-        holder.mTextView2.setText(taskArrayList.get(position).getTime() + taskArrayList.get(position).getTimeType());
+        holder.mTextView2.setText(taskArrayList.get(position).getTime() +" "+ taskArrayList.get(position).getTimeType());
 
     }
     @Override

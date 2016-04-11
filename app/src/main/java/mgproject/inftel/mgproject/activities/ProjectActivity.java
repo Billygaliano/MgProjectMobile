@@ -33,12 +33,9 @@ import mgproject.inftel.mgproject.util.RequestCollaborators;
 import mgproject.inftel.mgproject.util.RequestProject;
 import mgproject.inftel.mgproject.util.RequestTask;
 
-public class ProjectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ProjectActivity extends AppCompatActivity {
     private int control = 0;
-    private MGApp mMGappInstance;
 
-    private GoogleApiClient mGoogleApiClient;
-    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,21 +57,7 @@ public class ProjectActivity extends AppCompatActivity implements NavigationView
             fabCollaborator.setVisibility(View.VISIBLE);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        navigationView.setNavigationItemSelectedListener(this);
-        View header = navigationView.getHeaderView(0);
-
         //Get the user
-        user = MGApp.getmInstance().getUser();
-        printUserInformation(header);
-
 
         new RequestTask(this).execute(MGApp.getServerUri() + "task/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
         new RequestCollaborators(this).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
@@ -84,58 +67,6 @@ public class ProjectActivity extends AppCompatActivity implements NavigationView
         getSupportFragmentManager().beginTransaction().add(R.id.frame_project, loadingFragment).commit();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_project) {
-
-            LoadingFragment loadingFragment = new LoadingFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
-
-            String url = MGApp.getServerUri() + "project/" + MGApp.getmInstance().getUser().getIdGoogleUser();
-            new RequestProject(this, "projectUser", null).execute(url);
-
-
-        } else if (id == R.id.nav_collaborator) {
-
-            LoadingFragment loadingFragment = new LoadingFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
-
-            String url = MGApp.getServerUri() + "projectCollaborations/" + MGApp.getmInstance().getUser().getIdGoogleUser();
-            new RequestProject(this, "projectUser", null).execute(url);
-
-        } else if (id == R.id.nav_logout) {
-            Auth.GoogleSignInApi.signOut(MGApp.getmInstance().getmGoogleApiClient());
-
-            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            editor.putString("email", "");
-            editor.putString("username", "");
-            editor.putString("photo", "");
-            editor.putString("idUser", "");
-            editor.commit();
-
-            Intent logoutIntent = new Intent(this, LoginActivity.class);
-            startActivity(logoutIntent);
-            finish();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-    public void printUserInformation (View header) {
-        TextView textUserName = (TextView) header.findViewById(R.id.nickNameMenu);
-        textUserName.setText(user.getUsername());
-
-        ImageView userImage = (ImageView) header.findViewById(R.id.imageView);
-        if(!user.getPhoto().equals("")){
-            Picasso.with(this).load(user.getPhoto()).into(userImage);
-        }
-    }
 
     public void showTaskListFragment(ArrayList<Task> taskList) {
         MGApp.getmInstance().setTaskList(taskList);

@@ -17,7 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textSize="30sp"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:id="@+id/pressing_textView"
             android:layout_centerHorizontal="true"
@@ -34,7 +33,6 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textSize="30sp"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:id="@+id/sudden_textView"
             android:layout_centerHorizontal="true"
@@ -44,14 +42,19 @@
             android:autoText="false"
             android:textStyle="bold"
             android:background="#ffae00" />
-
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/priority_tasks1"
+            android:layout_above="@+id/textView">
         <TextView
             android:layout_toLeftOf="@+id/accessory_textView"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textSize="30sp"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:id="@+id/planned_textView"
             android:layout_centerHorizontal="true"
@@ -67,7 +70,6 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:textSize="30sp"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:id="@+id/accessory_textView"
             android:textColor="#ffffff"
@@ -86,6 +88,7 @@
         android:gravity="center"
         android:id="@+id/textView"
         android:textColor="#717682"
+        android:layout_marginTop="40dp"
         android:text="Descripción del proyecto"
         android:layout_gravity="center_horizontal"
         android:autoText="false"
