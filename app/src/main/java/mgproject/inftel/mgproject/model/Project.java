@@ -19,15 +19,17 @@ public class Project implements Parcelable{
     private String description;
     private ArrayList<Long> tasksProject;
     private ArrayList<User> collaborators;
-    private String adminProject;
+    private User adminProject;
 
     public Project() {
     }
 
+
     protected Project(Parcel in) {
         nameProject = in.readString();
         description = in.readString();
-        adminProject = in.readString();
+        collaborators = in.createTypedArrayList(User.CREATOR);
+        adminProject = in.readParcelable(User.class.getClassLoader());
     }
 
     public static final Creator<Project> CREATOR = new Creator<Project>() {
@@ -82,11 +84,11 @@ public class Project implements Parcelable{
         this.collaborators = collaborators;
     }
 
-    public String getAdminProject() {
+    public User getAdminProject() {
         return adminProject;
     }
 
-    public void setAdminProject(String adminProject) {
+    public void setAdminProject(User adminProject) {
         this.adminProject = adminProject;
     }
 
@@ -101,8 +103,8 @@ public class Project implements Parcelable{
         }
         project.setIdProject(jsonObject.getLong("idProject"));
         project.setNameProject(jsonObject.getString("name"));
-        JSONObject AdminProject = new JSONObject(jsonObject.getString("idAdmin"));
-        project.setAdminProject(AdminProject.getString("idUser"));
+        JSONObject adminProject = new JSONObject(jsonObject.getString("idAdmin"));
+        project.setAdminProject(User.fromJSON(adminProject.toString()));
         return project;
     }
 
@@ -119,6 +121,9 @@ public class Project implements Parcelable{
 
         dest.writeString(nameProject);
         dest.writeString(description);
-        dest.writeString(adminProject);
+        dest.writeTypedList(collaborators);
+        dest.writeParcelable(adminProject, flags);
     }
+
+
 }

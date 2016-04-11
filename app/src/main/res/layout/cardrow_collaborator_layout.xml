@@ -8,10 +8,10 @@
     android:layout_margin="1dp">
 
     <RelativeLayout
-        android:id="@+id/backgroundImage"
+        android:id="@+id/collaborator_background_Image"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/primary_light"
+        android:background="@color/icons"
         >
         <RelativeLayout
             android:layout_width="match_parent"

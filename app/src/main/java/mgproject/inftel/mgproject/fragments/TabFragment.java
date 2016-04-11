@@ -50,6 +50,7 @@ public class TabFragment extends Fragment {
 
 
         this.collaboratorsList = MGApp.getmInstance().getCollaboratorsList();
+        collaboratorsList.add(MGApp.getmInstance().getProject().getAdminProject());
         this.tasksList = MGApp.getmInstance().getTaskList();
         this.attatchList = MGApp.getmInstance().getFilesList();
 

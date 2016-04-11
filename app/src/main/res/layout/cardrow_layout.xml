@@ -24,7 +24,8 @@ android:layout_marginTop="1dp">
             android:layout_marginLeft="15dp"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:maxLength="20" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

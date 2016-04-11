@@ -58,7 +58,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.mTextView.setText(projectList.get(position).getNameProject());
 
-        if(projectList.get(position).getAdminProject().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
+        if(projectList.get(position).getAdminProject().getIdGoogleUser().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
             holder.mImageView.setImageResource(R.drawable.ic_person_black_24dp);
 
         }else{

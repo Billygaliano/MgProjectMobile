@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,10 +29,12 @@ public class RecyclerViewCollaborator extends RecyclerView.Adapter<RecyclerViewC
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextView;
         public CircleImageView circleImageView;
+        public RelativeLayout mBackgroudView;
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.collaboratorName);
             circleImageView = (CircleImageView) itemView.findViewById(R.id.collaboratorImage);
+            mBackgroudView = (RelativeLayout) itemView.findViewById(R.id.collaborator_background_Image);
         }
     }
     public RecyclerViewCollaborator(ArrayList<User> collaboratorsList,Context context){
@@ -50,8 +54,8 @@ public class RecyclerViewCollaborator extends RecyclerView.Adapter<RecyclerViewC
         if(!collaboratorsList.get(position).getPhoto().equals("undefined")) {
             Picasso.with(this.context).load(collaboratorsList.get(position).getPhoto()).into(holder.circleImageView);
         }
-        if(collaboratorsList.get(position).getIdGoogleUser().equals(MGApp.getmInstance().getProject().getAdminProject())){
-
+        if(collaboratorsList.get(position).getIdGoogleUser().equals(MGApp.getmInstance().getProject().getAdminProject().getIdGoogleUser())){
+            holder.mBackgroudView.setBackgroundResource(R.color.primary_light);
         }
         holder.mTextView.setText(collaboratorsList.get(position).getUsername());
     }
