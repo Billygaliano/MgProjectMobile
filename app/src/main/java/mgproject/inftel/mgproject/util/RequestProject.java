@@ -1,6 +1,7 @@
 package mgproject.inftel.mgproject.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.AddCollaboratorActivity;
 import mgproject.inftel.mgproject.activities.AddProjectActivity;
 import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
+import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 
@@ -162,12 +165,18 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
         }else if(this.action.equals("addProject")){
             Toast toast = Toast.makeText(context,"Proyecto añadido", Toast.LENGTH_SHORT);
             toast.show();
+            Intent intent = new Intent(context,MainActivity.class);
+            context.startActivity(intent);
+            ((AddProjectActivity)this.context).finish();
 
-            //((AddProjectActivity)this.context).finish();
 
         }else if(this.action.equals("addCollaborator")){
             Toast toast = Toast.makeText(context,"Colaborador añadido", Toast.LENGTH_SHORT);
             toast.show();
+            Intent intent = new Intent(context,ProjectActivity.class);
+
+            context.startActivity(intent);
+            ((AddCollaboratorActivity)this.context).finish();
         }
 
 
