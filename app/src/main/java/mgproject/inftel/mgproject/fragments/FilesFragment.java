@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Attatch;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewFiles;
@@ -31,8 +32,7 @@ public class FilesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Bundle bundle = getArguments();
-        attatchArrayList = bundle.getParcelableArrayList("attatchList");
+        attatchArrayList = MGApp.getmInstance().getFilesList();
 
         if(!attatchArrayList.isEmpty()){
             view = inflater.inflate(R.layout.fragment_file_list, container, false);

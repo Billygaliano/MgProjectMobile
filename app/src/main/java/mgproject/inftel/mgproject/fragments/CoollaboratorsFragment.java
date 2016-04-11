@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.User;
 import mgproject.inftel.mgproject.recyclerView.RecyclerItemClickListener;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewCollaborator;
@@ -29,8 +30,7 @@ public class CoollaboratorsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_collaborators_list,container,false);
-        Bundle bundle = getArguments();
-        collaboratorsList = bundle.getParcelableArrayList("collaboratorsList");
+        collaboratorsList = MGApp.getmInstance().getCollaboratorsList();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.collaborator_recycler_view);
         mRecyclerView.setHasFixedSize(true);

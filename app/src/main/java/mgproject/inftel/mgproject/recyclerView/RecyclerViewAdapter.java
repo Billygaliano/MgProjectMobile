@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,10 +32,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public TextView mTextView;
         public RelativeLayout mImageBackground;
+        public ImageView mImageView;
         public ViewHolder(View v){
             super(v);
             mTextView = (TextView) v.findViewById(R.id.projectName);
             mImageBackground = (RelativeLayout) v.findViewById(R.id.backgroundImage);
+            mImageView = (ImageView) v.findViewById(R.id.imageProject);
         }
 
     }
@@ -56,9 +59,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTextView.setText(projectList.get(position).getNameProject());
 
         if(projectList.get(position).getAdminProject().equals(MGApp.getmInstance().getUser().getIdGoogleUser())){
-            holder.mImageBackground.setBackgroundResource(R.drawable.icon);
+            holder.mImageView.setImageResource(R.drawable.ic_person_black_24dp);
+
         }else{
-            holder.mImageBackground.setBackgroundResource(R.drawable.icon_etiq);
         }
 
 

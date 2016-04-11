@@ -49,10 +49,15 @@ public class TabFragment extends Fragment {
         fabAddCollaborator.setVisibility(View.VISIBLE);
 
 
-
         this.collaboratorsList = MGApp.getmInstance().getCollaboratorsList();
         this.tasksList = MGApp.getmInstance().getTaskList();
         this.attatchList = MGApp.getmInstance().getFilesList();
+
+        tasksFragment = new TasksFragment();
+
+        coollaboratorsFragment = new CoollaboratorsFragment();
+
+        filesFragment = new FilesFragment();
 
         /**
          *Set an Apater for the View Pager
@@ -95,25 +100,11 @@ public class TabFragment extends Fragment {
                   DescriptionFragment descriptionFragment = new DescriptionFragment();
                   return descriptionFragment;
               case 1 :
-                  Bundle bundleTask = new Bundle();
-                  bundleTask.putParcelableArrayList("taskList",tasksList);
-                  tasksFragment = new TasksFragment();
-                  tasksFragment.setArguments(bundleTask);
                   return tasksFragment;
               case 2 :
-                  Bundle bundleColla = new Bundle();
-                  bundleColla.putParcelableArrayList("collaboratorsList",collaboratorsList);
-                  coollaboratorsFragment = new CoollaboratorsFragment();
-                  coollaboratorsFragment.setArguments(bundleColla);
                   return coollaboratorsFragment;
-
               case 3 :
-                  Bundle bundleAttatch = new Bundle();
-                  bundleAttatch.putParcelableArrayList("attatchList",attatchList);
-                  filesFragment = new FilesFragment();
-                  filesFragment.setArguments(bundleAttatch);
                   return  filesFragment;
-
               case 4 :
                   return new ChatFragment();
           }

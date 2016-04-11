@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Task;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewCollaborator;
 import mgproject.inftel.mgproject.recyclerView.RecyclerViewTask;
@@ -27,8 +28,8 @@ public class TasksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_task_list,container,false);
-        Bundle bundle = getArguments();
-        tasksList = bundle.getParcelableArrayList("taskList");
+        tasksList = MGApp.getmInstance().getTaskList();
+
         if(!tasksList.isEmpty()) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.task_recycler_view);
             mRecyclerView.setHasFixedSize(true);

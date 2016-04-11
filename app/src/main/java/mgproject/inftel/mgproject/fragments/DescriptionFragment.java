@@ -61,7 +61,10 @@ public class DescriptionFragment extends Fragment {
 
         accesory_textView = (TextView) view.findViewById(R.id.accessory_textView);
         accesory_textView.setText(String.valueOf(accesory));
-
+                    pressing= 0;
+                    sudden = 0;
+        planned = 0;
+        accesory = 0;
                     return view;
             }
         }

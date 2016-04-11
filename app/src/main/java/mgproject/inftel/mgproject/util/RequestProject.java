@@ -63,12 +63,13 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
         try {
             URL obj = new URL(myurl);
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
-            connection.setRequestMethod("PUT");
+            connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+            System.out.println(json.toString());
             dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
             dStream.flush(); // Flushes the data output stream.
             dStream.close();

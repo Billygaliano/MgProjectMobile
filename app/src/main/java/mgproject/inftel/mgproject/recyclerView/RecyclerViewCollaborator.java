@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.User;
 
 /**
@@ -48,6 +49,9 @@ public class RecyclerViewCollaborator extends RecyclerView.Adapter<RecyclerViewC
     public void onBindViewHolder(RecyclerViewCollaborator.ViewHolder holder, int position) {
         if(!collaboratorsList.get(position).getPhoto().equals("undefined")) {
             Picasso.with(this.context).load(collaboratorsList.get(position).getPhoto()).into(holder.circleImageView);
+        }
+        if(collaboratorsList.get(position).getIdGoogleUser().equals(MGApp.getmInstance().getProject().getAdminProject())){
+
         }
         holder.mTextView.setText(collaboratorsList.get(position).getUsername());
     }
