@@ -1,6 +1,7 @@
 package mgproject.inftel.mgproject.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.AddCollaboratorActivity;
 import mgproject.inftel.mgproject.activities.AddProjectActivity;
 import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.activities.MainActivity;
+import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.model.Project;
 import mgproject.inftel.mgproject.model.User;
 
@@ -48,6 +51,8 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
                 return projectUser(url[0]);
             }else if(this.action.equals("addProject")){
                 return addProject(url[0]);
+            }else if(this.action.equals("addCollaborator")) {
+                return addCollaborator(url[0]);
             }else{
                 return null;
             }
@@ -59,6 +64,7 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
     }
     private String addProject(String myurl) throws IOException{
         StringBuilder response = new StringBuilder();
+        System.out.println(json.toString());
 
         try {
             URL obj = new URL(myurl);
@@ -66,10 +72,10 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setDoInput(true);
-            connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
+            connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-            System.out.println(json.toString());
+            System.out.println("USUARIO"+json.toString());
             dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
             dStream.flush(); // Flushes the data output stream.
             dStream.close();
@@ -112,6 +118,33 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
         return response.toString();
     }
 
+    private String addCollaborator(String myurl) throws IOException{
+        StringBuilder response = new StringBuilder();
+        System.out.println(json.toString());
+
+        try {
+            URL obj = new URL(myurl);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+            System.out.println("USUARIO" + json.toString());
+            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
+            dStream.flush(); // Flushes the data output stream.
+            dStream.close();
+
+            connection.getResponseCode();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     @Override
     protected void onPostExecute(String result){
 
@@ -130,11 +163,20 @@ public class  RequestProject extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             }
         }else if(this.action.equals("addProject")){
+            Toast toast = Toast.makeText(context,"Proyecto añadido", Toast.LENGTH_SHORT);
+            toast.show();
+            Intent intent = new Intent(context,MainActivity.class);
+            context.startActivity(intent);
+            ((AddProjectActivity)this.context).finish();
+
+
+        }else if(this.action.equals("addCollaborator")){
             Toast toast = Toast.makeText(context,"Colaborador añadido", Toast.LENGTH_SHORT);
             toast.show();
+            Intent intent = new Intent(context,ProjectActivity.class);
 
-            //((AddProjectActivity)this.context).finish();
-
+            context.startActivity(intent);
+            ((AddCollaboratorActivity)this.context).finish();
         }
 
 

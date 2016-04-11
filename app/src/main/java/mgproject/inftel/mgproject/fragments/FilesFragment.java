@@ -26,7 +26,7 @@ public class FilesFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Attatch> attatchArrayList;
-    private String urlAttachment = "http://192.168.1.134:8080/MgProjects-war/faces/";
+    private String urlAttachment = "http://192.168.1.115:8080/MgProjects-war/faces/";
 
     @Nullable
     @Override
@@ -49,10 +49,9 @@ public class FilesFragment extends Fragment {
                 @Override
                 public void onItemClick(View view, int position) {
                     Attatch attatch = attatchArrayList.get(position);
-                    urlAttachment = urlAttachment + attatch.getUrlFile();
-                    Log.d("URL", urlAttachment);
+
                     Intent intent = null;
-                    intent = new Intent(intent.ACTION_VIEW,Uri.parse(urlAttachment));
+                    intent = new Intent(intent.ACTION_VIEW,Uri.parse(urlAttachment+attatch.getUrlFile()));
                     startActivity(intent);
 
                 }
