@@ -44,13 +44,13 @@ public class CoollaboratorsFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 User user = collaboratorsList.get(position);
-                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
                 sendIntent.setType("plain/text");
-                sendIntent.setData(Uri.parse(user.getEmail()));
-                sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{user.getEmail()});
 
-                startActivity(sendIntent);
 
+                startActivity(Intent.createChooser(sendIntent,"Email"));
             }
         }));
         return view;
