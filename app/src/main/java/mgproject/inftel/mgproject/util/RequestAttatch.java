@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.activities.MainActivity;
+import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.fragments.TabFragment;
 import mgproject.inftel.mgproject.model.Attatch;
 import mgproject.inftel.mgproject.model.Project;
@@ -24,13 +25,9 @@ import mgproject.inftel.mgproject.model.Project;
  */
 public class RequestAttatch extends AsyncTask<String,Void,String> {
     private Context context;
-    private TabFragment fragment;
 
     public RequestAttatch(Context context) {
         this.context = context;
-    }
-    public RequestAttatch(TabFragment fragment){
-        this.fragment = fragment;
     }
 
     @Override
@@ -81,7 +78,7 @@ public class RequestAttatch extends AsyncTask<String,Void,String> {
                 Attatch a = Attatch.fromJSON(jsonArray.get(i).toString());
                 attatchList.add(a);
             }
-            fragment.showAttatch(attatchList);
+            ((ProjectActivity)context).showAttatch(attatchList);
 
 
         } catch (JSONException e) {

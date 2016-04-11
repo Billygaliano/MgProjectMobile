@@ -47,17 +47,14 @@ public class TabFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-        this.fabAddProject = (FloatingActionButton) this.getActivity().findViewById(R.id.addProject);
-        fabAddProject.hide();
         this.fabAddCollaborator = (FloatingActionButton) this.getActivity().findViewById(R.id.addCollaborator);
         fabAddCollaborator.setVisibility(View.VISIBLE);
 
 
-        Bundle projectBundle = getArguments();
-        project = projectBundle.getParcelable("project");
-        tasksList = projectBundle.getParcelableArrayList("taskList");
 
-        System.out.println("Admin del proyecto" + project.getAdminProject());
+        this.collaboratorsList = MGApp.getmInstance().getCollaboratorsList();
+        this.tasksList = MGApp.getmInstance().getTaskList();
+        this.attatchList = MGApp.getmInstance().getFilesList();
 
         /**
          *Set an Apater for the View Pager
@@ -97,20 +94,28 @@ public class TabFragment extends Fragment {
         {
           switch (position){
               case 0 :
-                  Bundle descriptionParam = new Bundle();
-
-                  descriptionParam.putString("description", project.getDescription());
-                  //descriptionParam.putParcelableArrayList("tasksList", tasksList);
-
                   DescriptionFragment descriptionFragment = new DescriptionFragment();
-                  descriptionFragment.setArguments(descriptionParam);
                   return descriptionFragment;
               case 1 :
-                  return new TasksFragment();
+                  Bundle bundleTask = new Bundle();
+                  bundleTask.putParcelableArrayList("taskList",tasksList);
+                  tasksFragment = new TasksFragment();
+                  tasksFragment.setArguments(bundleTask);
+                  return tasksFragment;
               case 2 :
+                  Bundle bundleColla = new Bundle();
+                  bundleColla.putParcelableArrayList("collaboratorsList",collaboratorsList);
+                  coollaboratorsFragment = new CoollaboratorsFragment();
+                  coollaboratorsFragment.setArguments(bundleColla);
                   return coollaboratorsFragment;
+
               case 3 :
-                  return filesFragment;
+                  Bundle bundleAttatch = new Bundle();
+                  bundleAttatch.putParcelableArrayList("attatchList",attatchList);
+                  filesFragment = new FilesFragment();
+                  filesFragment.setArguments(bundleAttatch);
+                  return  filesFragment;
+
               case 4 :
                   return new ChatFragment();
           }
@@ -147,43 +152,4 @@ public class TabFragment extends Fragment {
         }
     }
 
-    public void showTaskListFragment(ArrayList<Task> taskList) {
-        tasksList = taskList;
-        TasksFragment tasksFragment= new TasksFragment();
-        System.out.println("Tamaño de la lista de tares: " + taskList.size());
-        //DescriptionFragment descriptionFragment = new DescriptionFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("taskList", taskList);
-        tasksFragment.setArguments(bundle);
-        //descriptionFragment.setArguments(bundle);
-
-//        tasksList = taskList;
-//        System.out.println("Tamaño de la lista de tares: " + taskList.size());
-//        tasksFragment= new TasksFragment();
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelableArrayList("taskList", tasksList);
-//        tasksFragment.setArguments(bundle);
-    }
-
-    public void showCollaborators(ArrayList< User > collaboratorsList) {
-        this.collaboratorsList = collaboratorsList;
-
-        this.coollaboratorsFragment = new CoollaboratorsFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("collaboratorsList", collaboratorsList);
-        coollaboratorsFragment.setArguments(bundle);
-    }
-
-    public void showAttatch(ArrayList<Attatch> filesList){
-        this.attatchList = filesList;
-
-        this.filesFragment = new FilesFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("attatchList",attatchList);
-        filesFragment.setArguments(bundle);
-    }
 }

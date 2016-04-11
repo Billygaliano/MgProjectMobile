@@ -17,6 +17,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.activities.MainActivity;
+import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.fragments.ProjectFragment;
 import mgproject.inftel.mgproject.fragments.TabFragment;
 import mgproject.inftel.mgproject.model.Project;
@@ -31,9 +32,6 @@ public class RequestCollaborators  extends AsyncTask<String,Void,String> {
 
     public RequestCollaborators(Context context) {
         this.context = context;
-    }
-    public RequestCollaborators(TabFragment fragment){
-        this.fragment = fragment;
     }
     @Override
     protected String doInBackground(String... url) {
@@ -85,7 +83,7 @@ public class RequestCollaborators  extends AsyncTask<String,Void,String> {
                 collaboratorsList.add(u);
 
             }
-            fragment.showCollaborators(collaboratorsList);
+            ((ProjectActivity)context).showCollaborators(collaboratorsList);
 
 
         } catch (JSONException e) {

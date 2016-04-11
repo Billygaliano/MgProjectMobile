@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.fragments.TabFragment;
 import mgproject.inftel.mgproject.model.Task;
 
@@ -22,15 +23,11 @@ import mgproject.inftel.mgproject.model.Task;
  */
 public class RequestTask extends AsyncTask<String,Void,String> {
     private Context context;
-    private TabFragment fragment;
 
     public RequestTask(Context context) {
         this.context = context;
     }
 
-    public RequestTask(TabFragment fragment) {
-        this.fragment = fragment;
-    }
 
     @Override
     protected String doInBackground(String... url) {
@@ -83,7 +80,7 @@ public class RequestTask extends AsyncTask<String,Void,String> {
                 taskList.add(t);
             }
 
-            fragment.showTaskListFragment(taskList);
+            ((ProjectActivity)context).showTaskListFragment(taskList);
 
 
         } catch (JSONException e) {

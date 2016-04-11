@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
-    tools:context="mgproject.inftel.mgproject.activities.MainActivity">
+    tools:showIn="@layout/app_bar_project"
+    tools:context="mgproject.inftel.mgproject.activities.ProjectActivity">
     <FrameLayout
-        android:id="@+id/frame_main"
+        android:id="@+id/frame_project"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/addProject"
+            android:id="@+id/addCollaborator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"

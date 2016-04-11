@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import mgproject.inftel.mgproject.R;
+import mgproject.inftel.mgproject.activities.MGApp;
 import mgproject.inftel.mgproject.model.Task;
 
 public class DescriptionFragment extends Fragment {
@@ -30,7 +31,7 @@ public class DescriptionFragment extends Fragment {
 
         view = inflater.inflate(R.layout.description_layout, container, false);
         textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(descriptionBundle.getString("description"));
+        textView.setText(MGApp.getmInstance().getProject().getDescription());
         //        tasksList = descriptionBundle.getParcelableArrayList("taskList");
 //
 //        for (int i=0; i<tasksList.size(); i++) {
