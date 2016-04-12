@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,17 +60,19 @@ public class ListChatAdapter extends BaseAdapter{
 
         view.setTag(holder);
 
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
         // Set the results into TextViews
-        if(!listMessages.get(position).isLeft()){
+        if(!listMessages.get(position).isLeft()) {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
-            holder.name.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-            holder.message.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            holder.name.setLayoutParams(params);
+            holder.message.setLayoutParams(params);
         }else {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
-            holder.name.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
-            holder.message.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         }
 
         return view;
