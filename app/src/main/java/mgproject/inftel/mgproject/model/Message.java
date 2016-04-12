@@ -10,10 +10,19 @@ import mgproject.inftel.mgproject.activities.MGApp;
  */
 public class Message {
     private boolean left;
+    private String id;
     private String name;
     private String msg;
 
     public Message() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public boolean isLeft() {
@@ -44,6 +53,7 @@ public class Message {
         Message message = new Message();
 
         JSONObject jsonObject = new JSONObject(response);
+        message.setId(jsonObject.getString("id"));
         message.setName(jsonObject.getString("user"));
         message.setMsg(jsonObject.getString("description"));
         message.setLeft(true);

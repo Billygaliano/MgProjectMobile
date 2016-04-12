@@ -35,6 +35,7 @@ public class ChatFragment extends Fragment {
     static Button mStart;
     static EditText mMessage;
     static ImageButton mSendMessage;
+    ArrayList<Message> listMessages = new ArrayList<Message>();
     private View view;
 
     @Nullable
@@ -52,9 +53,9 @@ public class ChatFragment extends Fragment {
 
         mSendMessage.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                String prueba = "{\"user\":\""+MGApp.getmInstance().getUser().getUsername()+"\",\"description\": \""+ mMessage.getText().toString() + "\",\"urlImage\":\""+MGApp.getmInstance().getUser().getPhoto()+"\"}";
+                String msg = "{\"user\":\""+MGApp.getmInstance().getUser().getUsername()+"\",\"description\": \""+ mMessage.getText().toString() + "\",\"urlImage\":\""+MGApp.getmInstance().getUser().getPhoto()+"\"}";
                 mConnection.sendTextMessage(mMessage.getText().toString());
-                mConnection.sendTextMessage(prueba);
+                mConnection.sendTextMessage(msg);
                 mMessage.setText("");
             }
         });
@@ -78,13 +79,10 @@ public class ChatFragment extends Fragment {
 
                 @Override
                 public void onTextMessage(String payload) {
-
-                    ArrayList<Message> listMessages = new ArrayList<Message>();
                     try {
                         JSONArray jsonArray = new JSONArray(payload);
                         for (int i = 0; i < jsonArray.length(); i++){
                             Message m = Message.fromJSON(jsonArray.get(i).toString());
-                            System.out.println("Nombre: " + m.getName() + " - Mensaje: "+ m.getMsg());
                             listMessages.add(m);
                         }
 
@@ -96,8 +94,9 @@ public class ChatFragment extends Fragment {
                     //Aquí recibimos el texto.
                     ListView messageList = (ListView) view.findViewById(R.id.listView);
                     ListChatAdapter adapter = new ListChatAdapter(getContext(), listMessages);
+                    //System.out.println(listMessages.size());
                     messageList.setAdapter(adapter);
-                    System.out.println("Got echo: " + payload);
+                    //System.out.println("Mensajes recibidos: " + payload);
                 }
 
                 @Override

@@ -12,7 +12,8 @@
         android:textSize="23sp"
         android:textStyle="bold"
         android:paddingTop="5dp"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentStart="false" />
 
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,6 +23,7 @@
         android:textSize="18sp"
         android:paddingTop="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@id/nameUser"/>
+        android:layout_below="@id/nameUser"
+        android:layout_alignParentRight="false"/>
 
 </RelativeLayout>
