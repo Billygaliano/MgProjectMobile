@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ import autobahn.WebSocket;
 import autobahn.WebSocketConnection;
 import autobahn.WebSocketConnectionHandler;
 import autobahn.WebSocketException;
-import mgproject.inftel.mgproject.activities.ProjectActivity;
 import mgproject.inftel.mgproject.adapter.ListChatAdapter;
 import mgproject.inftel.mgproject.model.Message;
 import mgproject.inftel.mgproject.model.Task;
@@ -94,9 +92,8 @@ public class ChatFragment extends Fragment {
                     //Aquí recibimos el texto.
                     ListView messageList = (ListView) view.findViewById(R.id.listView);
                     ListChatAdapter adapter = new ListChatAdapter(getContext(), listMessages);
-                    //System.out.println(listMessages.size());
                     messageList.setAdapter(adapter);
-                    //System.out.println("Mensajes recibidos: " + payload);
+                    messageList.setSelection(listMessages.size()-1);
                 }
 
                 @Override

@@ -56,24 +56,29 @@ public class ListChatAdapter extends BaseAdapter{
 
         holder.name = (TextView) view.findViewById(R.id.nameUser);
         holder.message = (TextView) view.findViewById(R.id.messageUser);
-        System.out.println("Mensajes: " + listMessages.get(position).getMsg());
 
         view.setTag(holder);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+        RelativeLayout.LayoutParams paramsName = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        RelativeLayout.LayoutParams paramsMessage = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsName.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        paramsMessage.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        paramsMessage.addRule(RelativeLayout.BELOW, R.id.nameUser);
 
         // Set the results into TextViews
         if(!listMessages.get(position).isLeft()) {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
-            holder.name.setLayoutParams(params);
-            holder.message.setLayoutParams(params);
+            holder.name.setLayoutParams(paramsName);
+            holder.message.setLayoutParams(paramsMessage);
         }else {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
         }
+
+        //notifyDataSetChanged();
 
         return view;
     }

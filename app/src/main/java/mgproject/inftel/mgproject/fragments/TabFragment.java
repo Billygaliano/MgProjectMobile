@@ -34,6 +34,7 @@ public class TabFragment extends Fragment {
     private CoollaboratorsFragment coollaboratorsFragment;
     private FilesFragment filesFragment;
     private TasksFragment tasksFragment;
+    private ChatFragment chatFragment;
     private FloatingActionButton fabAddCollaborator;
 
     @Nullable
@@ -59,6 +60,8 @@ public class TabFragment extends Fragment {
         coollaboratorsFragment = new CoollaboratorsFragment();
 
         filesFragment = new FilesFragment();
+
+        chatFragment = new ChatFragment();
 
         /**
          *Set an Apater for the View Pager
@@ -105,9 +108,9 @@ public class TabFragment extends Fragment {
               case 2 :
                   return coollaboratorsFragment;
               case 3 :
-                  return  filesFragment;
+                  return filesFragment;
               case 4 :
-                  return new ChatFragment();
+                  return chatFragment;
           }
         return null;
         }

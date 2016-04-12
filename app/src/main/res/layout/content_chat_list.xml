@@ -12,7 +12,6 @@
         android:textSize="23sp"
         android:textStyle="bold"
         android:paddingTop="5dp"
-        android:layout_marginLeft="10dp"
         android:layout_alignParentStart="false" />
 
     <TextView
@@ -22,7 +21,6 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:paddingTop="5dp"
-        android:layout_marginLeft="10dp"
         android:layout_below="@id/nameUser"
         android:layout_alignParentRight="false"/>
 
