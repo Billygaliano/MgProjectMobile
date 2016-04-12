@@ -81,6 +81,7 @@ public class ChatFragment extends Fragment {
                         JSONArray jsonArray = new JSONArray(payload);
                         for (int i = 0; i < jsonArray.length(); i++){
                             Message m = Message.fromJSON(jsonArray.get(i).toString());
+                            System.out.println("Mensajes: " +payload );
                             listMessages.add(m);
                         }
 

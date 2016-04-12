@@ -5,9 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import mgproject.inftel.mgproject.R;
 
@@ -56,6 +61,7 @@ public class ListChatAdapter extends BaseAdapter{
 
         holder.name = (TextView) view.findViewById(R.id.nameUser);
         holder.message = (TextView) view.findViewById(R.id.messageUser);
+        holder.imageUser = (ImageView) view.findViewById(R.id.imageView);
 
         view.setTag(holder);
 
@@ -63,19 +69,34 @@ public class ListChatAdapter extends BaseAdapter{
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         RelativeLayout.LayoutParams paramsMessage = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams paramsImage = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
         paramsName.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         paramsMessage.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         paramsMessage.addRule(RelativeLayout.BELOW, R.id.nameUser);
+        paramsImage.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        paramsImage.height = 40;
+        paramsImage.width = 40;
+        paramsImage.addRule(RelativeLayout.ALIGN_PARENT_END);
 
         // Set the results into TextViews
         if(!listMessages.get(position).isLeft()) {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
+            if(!listMessages.get(position).getImage().equals("")){
+                Picasso.with(view.getContext()).load(listMessages.get(position).getImage()).into(holder.imageUser);
+            }
+
             holder.name.setLayoutParams(paramsName);
             holder.message.setLayoutParams(paramsMessage);
+            holder.imageUser.setLayoutParams(paramsImage);
         }else {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
+            if(!listMessages.get(position).getImage().equals("")){
+                Picasso.with(view.getContext()).load(listMessages.get(position).getImage()).into(holder.imageUser);
+            }
         }
 
         //notifyDataSetChanged();
@@ -86,5 +107,6 @@ public class ListChatAdapter extends BaseAdapter{
     public class ViewHolder {
         TextView name;
         TextView message;
+        ImageView imageUser;
     }
 }

@@ -5,24 +5,42 @@
     android:layout_height="match_parent"
     android:id="@+id/listChat">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@drawable/woman"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/messageUser"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp" />
+
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/nameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="23sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:paddingTop="5dp"
-        android:layout_alignParentStart="false" />
+        android:text="Usuario"
+        android:textColor="#003e80"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/messageUser" />
 
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/messageUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:paddingTop="5dp"
-        android:layout_below="@id/nameUser"
-        android:layout_alignParentRight="false"/>
+        android:textSize="20sp"
+        android:text="Mensaje"
+        android:layout_below="@+id/nameUser"
+        android:layout_toEndOf="@+id/imageView" />
 
 </RelativeLayout>

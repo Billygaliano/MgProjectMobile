@@ -13,6 +13,7 @@ public class Message {
     private String id;
     private String name;
     private String msg;
+    private String image;
 
     public Message() {
     }
@@ -49,6 +50,14 @@ public class Message {
         this.msg = msg;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public static Message fromJSON(String response) throws JSONException {
         Message message = new Message();
 
@@ -57,6 +66,7 @@ public class Message {
         message.setName(jsonObject.getString("user"));
         message.setMsg(jsonObject.getString("description"));
         message.setLeft(true);
+        message.setImage(jsonObject.getString("urlImage"));
         if(jsonObject.getString("user").equals(MGApp.getmInstance().getUser().getUsername())){
             message.setLeft(false);
         }
