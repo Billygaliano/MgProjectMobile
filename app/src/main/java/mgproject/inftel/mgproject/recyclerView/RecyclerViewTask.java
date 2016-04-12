@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,11 +33,13 @@ public class RecyclerViewTask extends RecyclerView.Adapter<RecyclerViewTask.View
         public TextView mTextView;
         public TextView mTextView2;
         public ImageView mimageView;
+        public RelativeLayout mBackground;
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.taskName);
             mTextView2 = (TextView) itemView.findViewById(R.id.timeTask);
             mimageView = (ImageView) itemView.findViewById(R.id.imageTask );
+            mBackground = (RelativeLayout) itemView.findViewById(R.id.taskBackgroud);
 
         }
     }
@@ -49,6 +52,19 @@ public class RecyclerViewTask extends RecyclerView.Adapter<RecyclerViewTask.View
 
     @Override
     public void onBindViewHolder(RecyclerViewTask.ViewHolder holder, int position) {
+
+        if(taskArrayList.get(position).getPriority().equals("acuciante")){
+            holder.mBackground.setBackgroundResource(R.color.acuciante);
+        }
+        if(taskArrayList.get(position).getPriority().equals("repentino")){
+            holder.mBackground.setBackgroundResource(R.color.repentino);
+        }
+        if(taskArrayList.get(position).getPriority().equals("plani")){
+            holder.mBackground.setBackgroundResource(R.color.planificado);
+        }
+        if(taskArrayList.get(position).getPriority().equals("accesorio")){
+            holder.mBackground.setBackgroundResource(R.color.accesorio);
+        }
         holder.mTextView.setText(taskArrayList.get(position).getNameTask());
         holder.mTextView2.setText(taskArrayList.get(position).getTime() +" "+ taskArrayList.get(position).getTimeType());
 
