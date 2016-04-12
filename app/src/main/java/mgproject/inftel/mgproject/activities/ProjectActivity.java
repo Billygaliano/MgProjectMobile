@@ -62,6 +62,7 @@ public class ProjectActivity extends AppCompatActivity {
         new RequestTask(this).execute(MGApp.getServerUri() + "task/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
         new RequestCollaborators(this).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
         new RequestAttatch(this).execute(MGApp.getServerUri() + "attatch/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
+        showUri(MGApp.getChatUri() + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
 
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_project, loadingFragment).commit();
@@ -86,8 +87,14 @@ public class ProjectActivity extends AppCompatActivity {
         allLoad();
     }
 
+    public void showUri(String uri) {
+        MGApp.getmInstance().setUri(uri);
+        control++;
+        allLoad();
+    }
+
     private void allLoad() {
-        if (control == 3) {
+        if (control == 4) {
             TabFragment tabFragment = new TabFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_project, tabFragment).commit();
         }
