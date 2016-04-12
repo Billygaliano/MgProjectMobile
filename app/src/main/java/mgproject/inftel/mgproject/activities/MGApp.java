@@ -16,6 +16,7 @@ import mgproject.inftel.mgproject.model.User;
  */
 public class MGApp extends Application {
     private static String serverUri = "http://192.168.1.132:8080/MgProjectRest/webresources/mgproject.service/";
+    private static String chatUri = "ws://192.168.1.115:8080/MgProjects-war/actions/";
     private GoogleApiClient mGoogleApiClient;
     private static MGApp mInstance;
     private User user;
@@ -23,6 +24,7 @@ public class MGApp extends Application {
     private ArrayList<User> collaboratorsList;
     private ArrayList<Attatch> filesList;
     private ArrayList<Task> taskList;
+    private String uri;
 
     @Override
     public void onCreate(){
@@ -46,12 +48,28 @@ public class MGApp extends Application {
         this.filesList = filesList;
     }
 
+    public static String getChatUri() {
+        return chatUri;
+    }
+
+    public static void setChatUri(String chatUri) {
+        MGApp.chatUri = chatUri;
+    }
+
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
     public void setTaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public Project getProject() {
