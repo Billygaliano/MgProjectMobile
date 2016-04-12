@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/addProject"
-        android:icon="@drawable/ic_add_white_24dp"
-        android:title="Añadir"
+        android:id="@+id/addCollaboratorbton"
+        android:icon="@drawable/ic_account_plus_white_48dp"
+        android:title="Añadir colaborador"
         app:showAsAction="ifRoom">
     </item>
 </menu>

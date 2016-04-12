@@ -3,6 +3,7 @@ package mgproject.inftel.mgproject.activities;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +34,8 @@ public class AddCollaboratorActivity extends AppCompatActivity {
         // Set up the login form.
         spinner = (Spinner) findViewById(R.id.spinnerUser);
         addButton = (Button)findViewById(R.id.addCollaboratorButton);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAddCollaboration);
+        setSupportActionBar(toolbar);
 
         new RequestUser(this,"getUsers").execute(MGApp.getServerUri() + "user/" + MGApp.getmInstance().getUser().getIdGoogleUser() + "/" + MGApp.getmInstance().getProject().getIdProject());
 

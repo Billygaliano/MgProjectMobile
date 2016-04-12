@@ -1,5 +1,6 @@
 package mgproject.inftel.mgproject.activities;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,31 +35,18 @@ import mgproject.inftel.mgproject.util.RequestCollaborators;
 import mgproject.inftel.mgproject.util.RequestProject;
 import mgproject.inftel.mgproject.util.RequestTask;
 
-public class ProjectActivity extends AppCompatActivity {
+public class ProjectActivity extends AppCompatActivity{
     private int control = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(MGApp.getmInstance().getProject().getNameProject());
         setContentView(R.layout.activity_project);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarProject);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fabCollaborator = (FloatingActionButton) findViewById(R.id.addCollaborator);
-        fabCollaborator.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProjectActivity.this,AddCollaboratorActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        if(MGApp.getmInstance().getUser().getIdGoogleUser().equals(MGApp.getmInstance().getProject().getAdminProject().getIdGoogleUser())){
-            fabCollaborator.setVisibility(View.VISIBLE);
-        }
-
-        //Get the user
 
         new RequestTask(this).execute(MGApp.getServerUri() + "task/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
         new RequestCollaborators(this).execute(MGApp.getServerUri() + "collaboratorsProject/" + String.valueOf(MGApp.getmInstance().getProject().getIdProject()));
@@ -98,5 +87,23 @@ public class ProjectActivity extends AppCompatActivity {
             TabFragment tabFragment = new TabFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_project, tabFragment).commit();
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.project, menu);
+        return true;
+    }
+    @Override
+    public boolean  onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.addCollaboratorbton) {
+            Intent intent = new Intent(ProjectActivity.this, AddCollaboratorActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,10 +1,12 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="mgproject.inftel.mgproject.activities.AddCollaboratorActivity">
 
     <!-- Login progress -->
@@ -14,7 +16,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbarAddCollaboration"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/primary"
@@ -26,7 +28,9 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="60dp">
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -53,8 +57,9 @@
                 android:layout_marginTop="16dp"
                 android:text="Añadir usuario"
                 android:textStyle="bold"
+                android:textColor="@color/icons"
                 android:onClick="onClickButton"
                 android:backgroundTint="@color/primary"/>
 
         </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -35,7 +35,6 @@ public class TabFragment extends Fragment {
     private FilesFragment filesFragment;
     private TasksFragment tasksFragment;
     private ChatFragment chatFragment;
-    private FloatingActionButton fabAddCollaborator;
 
     @Nullable
     @Override
@@ -46,8 +45,6 @@ public class TabFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-        this.fabAddCollaborator = (FloatingActionButton) this.getActivity().findViewById(R.id.addCollaborator);
-        fabAddCollaborator.setVisibility(View.VISIBLE);
 
 
         this.collaboratorsList = MGApp.getmInstance().getCollaboratorsList();
