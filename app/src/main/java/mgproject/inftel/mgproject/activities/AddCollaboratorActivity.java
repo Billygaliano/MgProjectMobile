@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,10 +45,14 @@ public class AddCollaboratorActivity extends AppCompatActivity {
     public void onClickButton(View view) throws JSONException {
        JSONObject jsonUser = new JSONObject();
         jsonUser = User.toJSON((User)spinner.getSelectedItem());
+        if((User)spinner.getSelectedItem() != null) {
+            String url = MGApp.getServerUri() + "project/" + MGApp.getmInstance().getProject().getIdProject();
+            new RequestProject(this, "addCollaborator", jsonUser).execute(url);
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(),"No se ha seleccionado ningun usuario",Toast.LENGTH_LONG);
+            toast.show();
 
-        String url = MGApp.getServerUri()+"project/"+MGApp.getmInstance().getProject().getIdProject();
-        new RequestProject(this,"addCollaborator",jsonUser).execute(url);
-
+        }
 
     }
     public void updateSpinner(ArrayList<User> userArrayList){
