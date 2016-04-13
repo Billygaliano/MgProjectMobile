@@ -1,6 +1,7 @@
 package mgproject.inftel.mgproject.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,7 @@ public class ListChatAdapter extends BaseAdapter{
         holder = new ViewHolder();
         view = inflater.inflate(R.layout.content_chat_list, null);
 
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.listChat);
         // Locate the TextViews in listfragment.xml
 
         holder.name = (TextView) view.findViewById(R.id.nameUser);
@@ -64,7 +66,7 @@ public class ListChatAdapter extends BaseAdapter{
         holder.imageUser = (ImageView) view.findViewById(R.id.imageView);
 
         view.setTag(holder);
-
+        /*
         RelativeLayout.LayoutParams paramsName = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         RelativeLayout.LayoutParams paramsMessage = new RelativeLayout.LayoutParams(
@@ -72,25 +74,24 @@ public class ListChatAdapter extends BaseAdapter{
         RelativeLayout.LayoutParams paramsImage = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-        paramsName.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        paramsMessage.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        paramsMessage.addRule(RelativeLayout.BELOW, R.id.nameUser);
-        paramsImage.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        paramsImage.height = 40;
-        paramsImage.width = 40;
-        paramsImage.addRule(RelativeLayout.ALIGN_PARENT_END);
 
+        paramsMessage.addRule(RelativeLayout.BELOW, R.id.nameUser);
+       // paramsMessage.addRule(RelativeLayout.ALIGN_PARENT_LEFT, R.id.imageView);
+        paramsImage.height = 80;
+        paramsImage.width = 80;
+*/
         // Set the results into TextViews
         if(!listMessages.get(position).isLeft()) {
+            relativeLayout.setGravity(Gravity.RIGHT);
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
             if(!listMessages.get(position).getImage().equals("")){
                 Picasso.with(view.getContext()).load(listMessages.get(position).getImage()).into(holder.imageUser);
             }
 
-            holder.name.setLayoutParams(paramsName);
-            holder.message.setLayoutParams(paramsMessage);
-            holder.imageUser.setLayoutParams(paramsImage);
+            //holder.name.setLayoutParams(paramsName);
+            //holder.message.setLayoutParams(paramsMessage);
+            //holder.imageUser.setLayoutParams(paramsImage);
         }else {
             holder.name.setText(listMessages.get(position).getName());
             holder.message.setText(listMessages.get(position).getMsg());
